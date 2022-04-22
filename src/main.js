@@ -12,4 +12,4 @@ let config = {
 let game = new Phaser.Game(config);
 
 // reserve keyboard vars
-let keySpace;
+let keySPACE;
