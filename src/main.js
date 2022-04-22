@@ -2,10 +2,14 @@
 // Jake Indgin, Lily Pham, and Rachel Trieu
 
 let config = {
-   type: Phaser.CANVAS,
-   width: 640,
-   height: 480,
+   type: Phaser.WEBGL,
+   width: 450,
+   height: 800,
    scene: [Menu, Play]
 }
 
+// Phaser game object
 let game = new Phaser.Game(config);
+
+// reserve keyboard vars
+let keySpace;
