@@ -13,14 +13,15 @@ class Play extends Phaser.Scene {
    create() {
       // define keys
       keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-      // temp indicator of play scene
-      this.add.text(20, 20, "Play Scene");
+      keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
       // sets level, climbing speed, and stamina bar
       this.level = 1;
       this.speed = 1;
       this.stamina = 100;
+      this.rest = false;
+      this.height = 0;
+      this.gameOver = false;
 
       // building positions
       this.buildingPos = [50, 550];
@@ -36,28 +37,74 @@ class Play extends Phaser.Scene {
       // add Alien Cat (p1)
       this.Cat = new Cat(this, 50, game.config.height/2, 'cat', 0, this.buildingPos).setOrigin(0.5);
 
-      // obstacles group
+      // balconyss group
       // copied from Nathan's code (https://nathanaltice.github.io/PaddleParkourP3/)
-      this.obstacles = this.add.group({
+      this.balconys = this.add.group({
+         classType: Balcony,
          runChildUpdate: true
       });
 
-      this.addBalcony(Math.random() < 0.5);
+      this.addBalcony();
+      // adds a balcony every 7 seconds
+      this.balconyTimer = this.time.addEvent({
+         delay: 7000,
+         callback: this.addBalcony,
+         callbackScope: this,
+         loop: true
+      });
 
+      // a temp stamina text
+      this.staminaText = this.add.text(game.config.width/2, 20, "Stamina: " + this.stamina, { fill: '#0f0'}).setOrigin(0.5);
+
+      // a temp height text
+      this.heightText = this.add.text(game.config.width/2, 40, "Height: " + this.height, { fill: '#0f0'}).setOrigin(0.5);
    }
 
    // makes a Balcony object
-   addBalcony(isLeft) {
+   addBalcony() {
+      let isLeft = Math.random() < 0.5;
       let balcony = new Balcony(this, isLeft ? this.buildingPos[0] : this.buildingPos[1], 0, 'balcony', 0).setOrigin(0.5);
       if(!isLeft) balcony.flipX = true;
-      this.obstacles.add(balcony);
+      this.balconys.add(balcony);
    }
 
-   update() {
-      // update building tiles
-      this.leftbuilding.tilePositionY -= this.speed;
-      this.rightbuilding.tilePositionY += this.speed;
+   update(time, delta) {
+      if(this.stamina <= 0 || this.Cat.y > game.config.height) {
+         this.gameOver = true;
+         this.balconys.runChildUpdate = false;
+      }
+      if(!this.gameOver) {
+         this.Cat.update(time, delta);
+         // game progresses when cats not resting
+         if(!this.Cat.isResting) {
+            // update building tiles
+            this.leftbuilding.tilePositionY -= this.speed *delta / 10;
+            this.rightbuilding.tilePositionY += this.speed *delta / 10;
+            
+            // if cat is falling check if it hits a balcony and if so cat rests
+            if(this.Cat.isFalling) {
+               this.physics.world.collide(this.Cat, this.balconys, () => {
+                  this.Cat.Rest();
+               });
+            }
 
-      this.Cat.update();
+            // reduces the stamina bar
+            this.stamina -= 10*delta/1000;
+            this.staminaText.setText("Stamina: " + this.stamina.toFixed(0));
+            this.height += this.speed * delta / 1000;
+            this.heightText.setText("Height: " + this.height.toFixed(0));
+
+         } else {
+            // increase the stamina bar
+            if(this.stamina < 100) {
+               this.stamina += 10*delta/1000;
+               this.staminaText.setText("Stamina: " + this.stamina.toFixed(0));
+            }
+            if(this.stamina > 100) this.stamina = 100;
+         }
+      } else {
+         // game over code here
+         console.log("game over");
+      }
    }
 }

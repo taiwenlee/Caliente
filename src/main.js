@@ -5,6 +5,12 @@ let config = {
    type: Phaser.WEBGL,
    width: 600,
    height: 800,
+   physics: {
+      default: 'arcade',
+      arcade: {
+         debug: true
+      }
+   },
    scene: [Menu, Play]
 }
 
@@ -12,4 +18,4 @@ let config = {
 let game = new Phaser.Game(config);
 
 // reserve keyboard vars
-let keySPACE;
+let keySPACE, keyS;
