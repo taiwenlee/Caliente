@@ -3,7 +3,7 @@
 
 let config = {
    type: Phaser.WEBGL,
-   width: 450,
+   width: 600,
    height: 800,
    scene: [Menu, Play]
 }
