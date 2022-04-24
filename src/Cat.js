@@ -10,7 +10,7 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       this.isResting = false;   // track if cat is resting
       this.leftPos = BuildingPos[0];        // set the left position of the cat
       this.rightPos = BuildingPos[1];     // set the right position of the cat
-      this.moveSpeed = 10;       // set the speed of the cat
+      this.moveSpeed = 10;       // set the speed of the cat (m/s)
       this.scale = .3;          // scales the sprite size
       this.startY = y;          // set the starting y position of the cat
    }
