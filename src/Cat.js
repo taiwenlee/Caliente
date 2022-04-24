@@ -9,7 +9,7 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       this.isFalling = false;   // track if cat is falling
       this.isResting = false;   // track if cat is resting
       this.leftPos = BuildingPos[0];        // set the left position of the cat
-      this.rightPost = BuildingPos[1];     // set the right position of the cat
+      this.rightPos = BuildingPos[1];     // set the right position of the cat
       this.moveSpeed = 10;       // set the speed of the cat
       this.scale = .3;          // scales the sprite size
       this.startY = y;          // set the starting y position of the cat
@@ -29,7 +29,8 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       // check if cat is currently jumping and updates position if it is
       if(this.isJumping) {
          this.left ? this.x -= this.moveSpeed * delta / 10 : this.x += this.moveSpeed * delta / 10;
-         if(this.x <= this.leftPos || this.x >= this.rightPost) {
+         if(this.x <= this.leftPos || this.x >= this.rightPos) {
+            this.left ? this.x = this.leftPos : this.x = this.rightPos;
             this.isJumping = false;
          }
       }

@@ -45,6 +45,7 @@ class Play extends Phaser.Scene {
       });
 
       this.addBalcony();
+
       // adds a balcony every 7 seconds
       this.balconyTimer = this.time.addEvent({
          delay: 7000,
@@ -63,7 +64,7 @@ class Play extends Phaser.Scene {
    // makes a Balcony object
    addBalcony() {
       let isLeft = Math.random() < 0.5;
-      let balcony = new Balcony(this, isLeft ? this.buildingPos[0] : this.buildingPos[1], 0, 'balcony', 0).setOrigin(0.5);
+      let balcony = new Balcony(this, isLeft ? this.buildingPos[0] : this.buildingPos[1], -84, 'balcony', 0).setOrigin(0.5);
       if(!isLeft) balcony.flipX = true;
       this.balconys.add(balcony);
    }
@@ -74,19 +75,30 @@ class Play extends Phaser.Scene {
          this.balconys.runChildUpdate = false;
       }
       if(!this.gameOver) {
+         // update cat
          this.Cat.update(time, delta);
+
+         // update level
+         if(this.height < 10) this.level = 1;
+         else this.level = this.height / 10;
+
+         // update speed
+         this.speed = Math.log(this.level) + 1;
+         this.Cat.speed = this.speed * 10;
+
          // game progresses when cats not resting
          if(!this.Cat.isResting) {
+
             // update building tiles
             this.leftbuilding.tilePositionY -= this.speed *delta / 10;
             this.rightbuilding.tilePositionY += this.speed *delta / 10;
             
             // if cat is falling check if it hits a balcony and if so cat rests
-            if(this.Cat.isFalling) {
+            /*if(this.Cat.isFalling) {
                this.physics.world.collide(this.Cat, this.balconys, () => {
                   this.Cat.Rest();
                });
-            }
+            }*/
 
             // reduces the stamina bar
             this.stamina -= 10*delta/1000;
@@ -97,10 +109,12 @@ class Play extends Phaser.Scene {
          } else {
             // increase the stamina bar
             if(this.stamina < 100) {
-               this.stamina += 10*delta/1000;
+               this.stamina += 20*delta/1000;
                this.staminaText.setText("Stamina: " + this.stamina.toFixed(0));
+               if(this.stamina > 100) this.stamina = 100;
             }
-            if(this.stamina > 100) this.stamina = 100;
+            
+
          }
       } else {
          // game over code here
