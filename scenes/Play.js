@@ -56,7 +56,7 @@ class Play extends Phaser.Scene {
       });
 
       // stamina bar
-      this.staminaBar = new staminaBar(this, 100, 100, 400, 30, 100, 4);
+      this.staminaBar = new staminaBar(this, 100, 725, 400, 30, 100, 4);
 
       // a temp height text
       this.heightText = this.add.text(game.config.width/2, 40, "Height: " + this.height, { fill: '#0f0'}).setOrigin(0.5);

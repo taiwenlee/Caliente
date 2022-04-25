@@ -4,10 +4,14 @@ class Menu extends Phaser.Scene {
    }
 
    preload() {
-      
+      this.load.audio('backgroundmusic', 'assets/Catlien.wav');
    }
 
    create() {
+
+      let music = this.sound.add('backgroundmusic');
+      music.setLoop(true);
+      music.play();
 
       this.add.text(20, 20, "Menu Scene");
 
@@ -22,6 +26,5 @@ class Menu extends Phaser.Scene {
    }
 
    update() {
-
    }
 }
