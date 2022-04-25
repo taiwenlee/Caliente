@@ -37,13 +37,14 @@ class Play extends Phaser.Scene {
       // add Alien Cat (p1)
       this.Cat = new Cat(this, 50, game.config.height/2, 'cat', 0, this.buildingPos).setOrigin(0.5);
 
-      // balconyss group
+      // balconys group
       // copied from Nathan's code (https://nathanaltice.github.io/PaddleParkourP3/)
       this.balconys = this.add.group({
          classType: Balcony,
          runChildUpdate: true
       });
 
+      // first balcony
       this.addBalcony();
 
       // adds a balcony every 7 seconds
@@ -54,8 +55,8 @@ class Play extends Phaser.Scene {
          loop: true
       });
 
-      // a temp stamina text
-      this.staminaText = this.add.text(game.config.width/2, 20, "Stamina: " + this.stamina, { fill: '#0f0'}).setOrigin(0.5);
+      // stamina bar
+      this.staminaBar = new staminaBar(this, 100, 100, 400, 30, 100, 4);
 
       // a temp height text
       this.heightText = this.add.text(game.config.width/2, 40, "Height: " + this.height, { fill: '#0f0'}).setOrigin(0.5);
@@ -77,6 +78,9 @@ class Play extends Phaser.Scene {
       if(!this.gameOver) {
          // update cat
          this.Cat.update(time, delta);
+
+         // update stamina bar
+         this.staminaBar.update(this.stamina);
 
          // update level
          if(this.height < 10) this.level = 1;
@@ -105,7 +109,6 @@ class Play extends Phaser.Scene {
 
             // reduces the stamina bar
             this.stamina -= 10*delta/1000;
-            this.staminaText.setText("Stamina: " + this.stamina.toFixed(0));
             this.height += this.speed * delta / 1000;
             this.heightText.setText("Height: " + this.height.toFixed(0));
 
@@ -116,7 +119,6 @@ class Play extends Phaser.Scene {
             // increase the stamina bar
             if(this.stamina < 100) {
                this.stamina += 40*delta/1000;
-               this.staminaText.setText("Stamina: " + this.stamina.toFixed(0));
                if(this.stamina > 100) this.stamina = 100;
             }
             
@@ -124,6 +126,7 @@ class Play extends Phaser.Scene {
          }
       } else {
          // game over code here
+         this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
          console.log("game over");
       }
    }

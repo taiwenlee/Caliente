@@ -4,10 +4,13 @@ class Balcony extends Phaser.Physics.Arcade.Sprite {
 
       scene.add.existing(this);
       scene.physics.add.existing(this);
+      this.defaultx = x;
       this.belowCat = false;           // track if cat is below the balcony
       this.fall = false;               // track if balcony is falling
+      this.shake = false;              // track if balcony is shaking
       this.fallTimer = null;
       this.scale = .2;
+      this.depth = 5;
    }
 
    update(time, delta) {
@@ -21,16 +24,24 @@ class Balcony extends Phaser.Physics.Arcade.Sprite {
          if(!this.scene.Cat.isResting && !this.fall && this.scene.Cat.isFalling && this.belowCat && this.scene.physics.world.collide(this, this.scene.Cat)) {
             this.scene.Cat.Rest();
 
-            // delayed call for balcony to fall
+            // delayed call for balcony to shake and fall
             if(this.fallTimer == null) {
-               this.fallTimer = this.scene.time.delayedCall(2000, () => { 
-                  this.fall = true;
-                  this.scene.Cat.isResting = false;
-                  console.log("balcony falls");
+               this.fallTimer = this.scene.time.delayedCall(1750, () => { 
+                  this.shake = true;
+                  this.fallTimer = this.scene.time.delayedCall(250, () => {
+                     this.fall = true;
+                     this.scene.Cat.isResting = false;
+                     console.log("balcony falls");
+                  });
                });
             }
             console.log("cat rest on balcony");
          }
+      }
+
+      // balcony shakes
+      if(this.shake) {
+         this.x = this.defaultx + Math.random() * 10 - 5;
       }
 
       // balcony falls down
