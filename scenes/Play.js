@@ -100,6 +100,9 @@ class Play extends Phaser.Scene {
                });
             }*/
 
+            // resume balcony spawning
+            this.balconyTimer.paused = false;
+
             // reduces the stamina bar
             this.stamina -= 10*delta/1000;
             this.staminaText.setText("Stamina: " + this.stamina.toFixed(0));
@@ -107,9 +110,12 @@ class Play extends Phaser.Scene {
             this.heightText.setText("Height: " + this.height.toFixed(0));
 
          } else {
+            // stop balcony spawning
+            this.balconyTimer.paused = true;
+
             // increase the stamina bar
             if(this.stamina < 100) {
-               this.stamina += 20*delta/1000;
+               this.stamina += 40*delta/1000;
                this.staminaText.setText("Stamina: " + this.stamina.toFixed(0));
                if(this.stamina > 100) this.stamina = 100;
             }
