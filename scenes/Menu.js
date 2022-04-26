@@ -4,17 +4,21 @@ class Menu extends Phaser.Scene {
    }
 
    preload() {
-      this.load.audio('backgroundmusic', 'assets/Catlien.wav');
       this.load.image('button', 'assets/button.png');
       this.load.image('menubackground', 'assets/tempbackground.jpg');
+      this.load.audio('backgroundmusic', 'assets/Catlien.wav');
+      this.load.audio('select', 'assets/select.wav');
    }
 
    create() {
 
       // background music
-      this.music = this.sound.add('backgroundmusic', {volume: musicVol});
-      this.music.setLoop(true);
-      this.music.play();
+      music = this.sound.add('backgroundmusic', {volume: musicVol});
+      music.setLoop(true);
+      music.play();
+
+      // select sound
+      this.selectSound = this.sound.add('select', {volume: sfxVol});
 
       // add a background image
       this.background = this.add.image(0, 0, 'menubackground');
@@ -33,6 +37,7 @@ class Menu extends Phaser.Scene {
       const playButton = this.add.image(game.config.width/2, game.config.height/2, 'button').setOrigin(0.5);
       playButton.setInteractive();
       playButton.on('pointerdown', () => {
+         this.selectSound.play({volume: sfxVol});
          this.scene.start("playScene");
       });
       playButton.scale = 0.3; // temp scaling for the button
@@ -41,7 +46,8 @@ class Menu extends Phaser.Scene {
       const settingButton = this.add.image(game.config.width/2 + 60, game.config.height/2 + 40, 'button').setOrigin(0.5);
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
-         this.scene.launch("settingScene");
+         this.selectSound.play({volume: sfxVol});
+         this.scene.launch("settingScene", {music: music});
       });
       settingButton.scale = 0.3; // temp scaling for the button
 
@@ -49,6 +55,7 @@ class Menu extends Phaser.Scene {
       const howToPlayButton = this.add.image(game.config.width/2 - 60, game.config.height/2 + 40, 'button').setOrigin(0.5);
       howToPlayButton.setInteractive();
       howToPlayButton.on('pointerdown', () => {
+         this.selectSound.play({volume: sfxVol});
          this.scene.launch("howToPlayScene");
       });
       howToPlayButton.scale = 0.3; // temp scaling for the button
@@ -56,6 +63,5 @@ class Menu extends Phaser.Scene {
    }
 
    update() {
-      this.music.volume = musicVol;
    }
 }

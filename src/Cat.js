@@ -38,7 +38,6 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
 
       // fall down
       if(keyS.isDown && !this.isJumping && !this.isResting) {
-         console.log("falling");
          this.isFalling = true;
       }
 

@@ -17,6 +17,9 @@ let game = new Phaser.Game(config);
 // reserve keyboard vars
 let keySPACE, keyS;
 
+// background music var
+let music;
+
 // volume vars
 let musicVol = 0.5;
 let sfxVol = 0.5;

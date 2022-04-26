@@ -65,7 +65,7 @@ class Play extends Phaser.Scene {
       const settingButton = this.add.image(game.config.width - 60, 40, 'button').setOrigin(0.5);
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
-         this.scene.launch("settingScene");
+         this.scene.launch("settingScene", {music: music});
       });
       settingButton.scale = 0.3; // temp scaling for the button
    }
