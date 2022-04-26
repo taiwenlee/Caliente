@@ -8,7 +8,7 @@ let config = {
    physics: {
       default: 'arcade',
    },
-   scene: [Menu, Play]
+   scene: [Menu, Play, Setting]
 }
 
 // Phaser game object
@@ -16,3 +16,7 @@ let game = new Phaser.Game(config);
 
 // reserve keyboard vars
 let keySPACE, keyS;
+
+// volume vars
+let musicVol = 0.5;
+let sfxVol = 0.5;

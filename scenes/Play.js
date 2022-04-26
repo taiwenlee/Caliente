@@ -60,6 +60,14 @@ class Play extends Phaser.Scene {
 
       // a temp height text
       this.heightText = this.add.text(game.config.width/2, 40, "Height: " + this.height, { fill: '#0f0'}).setOrigin(0.5);
+   
+      // temp setting button
+      const settingButton = this.add.image(game.config.width - 60, 40, 'button').setOrigin(0.5);
+      settingButton.setInteractive();
+      settingButton.on('pointerdown', () => {
+         this.scene.launch("settingScene");
+      });
+      settingButton.scale = 0.3; // temp scaling for the button
    }
 
    // makes a Balcony object
