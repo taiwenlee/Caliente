@@ -94,12 +94,15 @@ class Play extends Phaser.Scene {
       this.fpsText.setText(Math.round(this.game.loop.actualFps));
 
       // check if gameover states
-      if(this.stamina <= 0 || this.Cat.y > game.config.height) {
+      if(!this.gameOver  && (this.stamina <= 0 || this.Cat.y > game.config.height)) {
          this.gameOver = true;
          this.obstacle.runChildUpdate = false;
          this.balconyTimer.destroy();
+          // game over code here
+          this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
+          console.log("game over");
       }
-      
+
       if(!this.gameOver && !pause) {
          // restart updates
          if(!this.obstacle.runChildUpdate) {
@@ -148,10 +151,6 @@ class Play extends Phaser.Scene {
             
 
          }
-      } else if(!pause){
-         // game over code here
-         this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
-         console.log("game over");
       } else {
          this.obstacle.runChildUpdate = false;
          this.balconyTimer.paused = true;
