@@ -4,10 +4,10 @@ class Play extends Phaser.Scene {
    }
 
    preload() {
-      this.load.image('cat', 'assets/cat.png');
-      this.load.image('buildingtile', 'assets/buildingtile.png');
-      this.load.image('background', 'assets/starfield.png');
-      this.load.image('balcony', 'assets/balcony.png');
+      this.load.image('cat', 'assets/images/cat.png');
+      this.load.image('buildingtile', 'assets/images/buildingtile.png');
+      this.load.image('background', 'assets/images/starfield.png');
+      this.load.image('balcony', 'assets/images/balcony.png');
    }
 
    create() {
@@ -95,14 +95,14 @@ class Play extends Phaser.Scene {
 
          // update speed based on level
          this.speed = Math.log(this.level) + 1;
-         this.Cat.moveSpeed = this.speed * 10;
+         this.Cat.moveSpeed = this.speed * 5;
 
          // game progresses when cats not resting
          if(!this.Cat.isResting) {
 
             // update building tiles
-            this.leftbuilding.tilePositionY -= this.speed *delta / 10;
-            this.rightbuilding.tilePositionY += this.speed *delta / 10;
+            this.leftbuilding.tilePositionY -= this.speed * delta / 10;
+            this.rightbuilding.tilePositionY += this.speed * delta / 10;
 
             // resume spawning
             this.balconyTimer.paused = false;
@@ -118,7 +118,7 @@ class Play extends Phaser.Scene {
 
             // increase the stamina bar
             if(this.stamina < 100) {
-               this.stamina += 40*delta/1000;
+               this.stamina += 40 * delta / 1000;
                if(this.stamina > 100) this.stamina = 100;
             }
             

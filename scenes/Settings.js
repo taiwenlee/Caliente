@@ -4,7 +4,7 @@ class Setting extends Phaser.Scene {
    }
 
    preload() {
-      this.load.image('button', 'assets/button.png');
+      this.load.image('button', 'assets/images/button.png');
    }
 
    create() {

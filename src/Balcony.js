@@ -22,12 +22,20 @@ class Balcony extends Phaser.Physics.Arcade.Sprite {
 
          // if cat is above the balcony, it falls down check for collision
          if(!this.scene.Cat.isResting && !this.fall && this.scene.Cat.isFalling && this.belowCat && this.scene.physics.world.collide(this, this.scene.Cat)) {
+            // set cat state to Resting
             this.scene.Cat.Rest();
+
+            // if cat is below the top of balcony on collision, move cat to the top of balcony
+            if(this.scene.Cat.y + this.scene.Cat.height * this.scene.Cat.scale / 2 > this.y - this.height * this.scale / 2) {
+               this.scene.Cat.y = this.y - this.height * this.scale / 2 - this.scene.Cat.height * this.scene.Cat.scale / 2;
+            }
 
             // delayed call for balcony to shake and fall
             if(this.fallTimer == null) {
+               // first delay set to cause shake
                this.fallTimer = this.scene.time.delayedCall(1500, () => { 
                   this.shake = true;
+                  // second delay set to cause fall
                   this.fallTimer = this.scene.time.delayedCall(500, () => {
                      this.fall = true;
                      this.scene.Cat.isResting = false;

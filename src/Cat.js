@@ -19,7 +19,7 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
    update(time, delta) {
       // if cat is lower than the starting y position, it slowly moves up while climbing
       if(this.y > this.startY && !this.isJumping && !this.isFalling && !this.isResting) {
-         this.y -= this.moveSpeed *delta / 200;
+         this.y -= this.moveSpeed * delta / 200;
       }
       // jumps from one side to another
       if(keySPACE.isDown && !this.isJumping) {

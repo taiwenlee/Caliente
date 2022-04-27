@@ -4,10 +4,10 @@ class Menu extends Phaser.Scene {
    }
 
    preload() {
-      this.load.image('button', 'assets/button.png');
-      this.load.image('menubackground', 'assets/tempbackground.jpg');
-      this.load.audio('backgroundmusic', 'assets/Catlien.wav');
-      this.load.audio('select', 'assets/select.wav');
+      this.load.image('button', 'assets/images/button.png');
+      this.load.image('menubackground', 'assets/images/tempbackground.jpg');
+      this.load.audio('backgroundmusic', 'assets/sounds/Catlien.wav');
+      this.load.audio('select', 'assets/sounds/select.wav');
    }
 
    create() {
