@@ -15,10 +15,13 @@ let config = {
 let game = new Phaser.Game(config);
 
 // reserve keyboard vars
-let keySPACE, keyS;
+let keySPACE, keyS, keyW;
 
 // background music var
 let music;
+
+// pause var
+let pause = false;
 
 // volume vars
 let musicVol = 0.5;

@@ -17,6 +17,7 @@ class Setting extends Phaser.Scene {
       const exitButton = this.add.image(500, 100, 'button').setOrigin(0.5);
       exitButton.setInteractive();
       exitButton.on('pointerdown', () => {
+         pause = false;
          this.selectSound.play({volume: sfxVol});
          this.scene.stop();
       });

@@ -14,10 +14,12 @@ class Play extends Phaser.Scene {
       // define keys
       keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
       keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+      keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
       // sets level, climbing speed, and stamina bar
       this.level = 1;
-      this.speed = 1;
+      this.startSpeed = 2;
+      this.speed = this.startSpeed;
       this.stamina = 100;
       this.rest = false;
       this.height = 0;
@@ -40,7 +42,8 @@ class Play extends Phaser.Scene {
       // Obstacle group
       // copied from Nathan's code (https://nathanaltice.github.io/PaddleParkourP3/)
       this.obstacle = this.add.group({
-         runChildUpdate: true
+         runChildUpdate: true,
+         maxSize: 10,
       });
 
       // recursive call to add more balconies with random timing
@@ -51,11 +54,15 @@ class Play extends Phaser.Scene {
 
       // a temp height text
       this.heightText = this.add.text(game.config.width/2, 40, "Height: " + this.height, { fill: '#0f0'}).setOrigin(0.5);
+
+      // temp fps text
+      this.fpsText = this.add.text(10, 40, "0", { fill: '#0f0'}).setOrigin(0, 0.5);
    
       // temp setting button
       const settingButton = this.add.image(game.config.width - 60, 40, 'button').setOrigin(0.5);
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
+         pause = true;
          this.scene.launch("settingScene", {music: music});
       });
       settingButton.scale = 0.3; // temp scaling for the button
@@ -78,11 +85,28 @@ class Play extends Phaser.Scene {
    }
 
    update(time, delta) {
+      // cheat code
+      if(keyW.isDown) {
+         this.stamina += 100;
+      }
+
+      // update fps text
+      this.fpsText.setText(Math.round(this.game.loop.actualFps));
+
+      // check if gameover states
       if(this.stamina <= 0 || this.Cat.y > game.config.height) {
          this.gameOver = true;
          this.obstacle.runChildUpdate = false;
+         this.balconyTimer.destroy();
       }
-      if(!this.gameOver) {
+      
+      if(!this.gameOver && !pause) {
+         // restart updates
+         if(!this.obstacle.runChildUpdate) {
+            this.obstacle.runChildUpdate = true;
+            this.balconyTimer.paused = false;
+         }
+
          // update cat
          this.Cat.update(time, delta);
 
@@ -94,7 +118,7 @@ class Play extends Phaser.Scene {
          else this.level = this.height / 10;
 
          // update speed based on level
-         this.speed = Math.log(this.level) + 1;
+         this.speed = Math.log(this.level) + this.startSpeed;
          this.Cat.moveSpeed = this.speed * 5;
 
          // game progresses when cats not resting
@@ -105,7 +129,7 @@ class Play extends Phaser.Scene {
             this.rightbuilding.tilePositionY += this.speed * delta / 10;
 
             // resume spawning
-            this.balconyTimer.paused = false;
+            //this.balconyTimer.paused = false;
 
             // reduces the stamina bar
             this.stamina -= 10*delta/1000;
@@ -124,10 +148,14 @@ class Play extends Phaser.Scene {
             
 
          }
-      } else {
+      } else if(!pause){
          // game over code here
          this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
          console.log("game over");
+      } else {
+         this.obstacle.runChildUpdate = false;
+         this.balconyTimer.paused = true;
       }
+
    }
 }

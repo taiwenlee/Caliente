@@ -1,4 +1,4 @@
-class deathObj extends Phaser.Physics.Arcade.Sprite {
+class Debris extends Phaser.Physics.Arcade.Sprite {
    constructor(scene, x, y, texture, frame) {
       super(scene, x, y, texture, frame);
 
