@@ -26,9 +26,9 @@ class Balcony extends Phaser.Physics.Arcade.Sprite {
 
             // delayed call for balcony to shake and fall
             if(this.fallTimer == null) {
-               this.fallTimer = this.scene.time.delayedCall(1750, () => { 
+               this.fallTimer = this.scene.time.delayedCall(1500, () => { 
                   this.shake = true;
-                  this.fallTimer = this.scene.time.delayedCall(250, () => {
+                  this.fallTimer = this.scene.time.delayedCall(500, () => {
                      this.fall = true;
                      this.scene.Cat.isResting = false;
                      console.log("balcony falls");

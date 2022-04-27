@@ -37,23 +37,14 @@ class Play extends Phaser.Scene {
       // add Alien Cat (p1)
       this.Cat = new Cat(this, 50, game.config.height/2, 'cat', 0, this.buildingPos).setOrigin(0.5);
 
-      // balconys group
+      // Obstacle group
       // copied from Nathan's code (https://nathanaltice.github.io/PaddleParkourP3/)
-      this.balconys = this.add.group({
-         classType: Balcony,
+      this.obstacle = this.add.group({
          runChildUpdate: true
       });
 
-      // first balcony
-      this.addBalcony();
-
-      // adds a balcony every 7 seconds
-      this.balconyTimer = this.time.addEvent({
-         delay: 7000,
-         callback: this.addBalcony,
-         callbackScope: this,
-         loop: true
-      });
+      // recursive call to add more balconies with random timing
+      this.addBalconyRecursive(1000, 7000);
 
       // stamina bar
       this.staminaBar = new staminaBar(this, 100, 725, 400, 30, 100, 4);
@@ -75,13 +66,21 @@ class Play extends Phaser.Scene {
       let isLeft = Math.random() < 0.5;
       let balcony = new Balcony(this, isLeft ? this.buildingPos[0] : this.buildingPos[1], -84, 'balcony', 0).setOrigin(0.5);
       if(!isLeft) balcony.flipX = true;
-      this.balconys.add(balcony);
+      this.obstacle.add(balcony);
+   }
+
+   // recursive addBalcony function
+   addBalconyRecursive(min, max) {
+      this.addBalcony();
+      let delay = Math.random() * (max - min) + min;
+      console.log("spawn balcony in " + delay + "ms");
+      this.balconyTimer = this.time.addEvent({delay: delay, callback: this.addBalconyRecursive, args: [min,max], callbackScope: this});
    }
 
    update(time, delta) {
       if(this.stamina <= 0 || this.Cat.y > game.config.height) {
          this.gameOver = true;
-         this.balconys.runChildUpdate = false;
+         this.obstacle.runChildUpdate = false;
       }
       if(!this.gameOver) {
          // update cat
@@ -94,9 +93,9 @@ class Play extends Phaser.Scene {
          if(this.height < 10) this.level = 1;
          else this.level = this.height / 10;
 
-         // update speed
+         // update speed based on level
          this.speed = Math.log(this.level) + 1;
-         this.Cat.speed = this.speed * 10;
+         this.Cat.moveSpeed = this.speed * 10;
 
          // game progresses when cats not resting
          if(!this.Cat.isResting) {
@@ -104,15 +103,8 @@ class Play extends Phaser.Scene {
             // update building tiles
             this.leftbuilding.tilePositionY -= this.speed *delta / 10;
             this.rightbuilding.tilePositionY += this.speed *delta / 10;
-            
-            // if cat is falling check if it hits a balcony and if so cat rests
-            /*if(this.Cat.isFalling) {
-               this.physics.world.collide(this.Cat, this.balconys, () => {
-                  this.Cat.Rest();
-               });
-            }*/
 
-            // resume balcony spawning
+            // resume spawning
             this.balconyTimer.paused = false;
 
             // reduces the stamina bar
