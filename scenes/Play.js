@@ -8,6 +8,7 @@ class Play extends Phaser.Scene {
       this.load.image('buildingtile', 'assets/images/buildingtile.png');
       this.load.image('background', 'assets/images/starfield.png');
       this.load.image('balcony', 'assets/images/balcony.png');
+      this.load.image('debris', 'assets/images/button.png');
    }
 
    create() {
@@ -23,7 +24,7 @@ class Play extends Phaser.Scene {
       this.stamina = 100;
       this.rest = false;
       this.height = 0;
-      this.gameOver = false;
+      this.over = false;
 
       // building positions
       this.buildingPos = [50, 550];
@@ -48,6 +49,9 @@ class Play extends Phaser.Scene {
 
       // recursive call to add more balconies with random timing
       this.addBalconyRecursive(1000, 7000);
+
+      // recursive call to add more debris with random timing
+      this.addDebrisRecursive(5000, 10000);
 
       // stamina bar
       this.staminaBar = new staminaBar(this, 100, 725, 400, 30, 100, 4);
@@ -74,7 +78,6 @@ class Play extends Phaser.Scene {
       let balcony = new Balcony(this, isLeft ? this.buildingPos[0] : this.buildingPos[1], -84, 'balcony', 0).setOrigin(0.5);
       if(!isLeft) balcony.flipX = true;
       this.obstacle.add(balcony);
-      console.log(this.obstacle.getChildren());
    }
 
    // recursive addBalcony function
@@ -83,6 +86,21 @@ class Play extends Phaser.Scene {
       let delay = Math.random() * (max - min) + min;
       console.log("spawn balcony in " + delay + "ms");
       this.balconyTimer = this.time.addEvent({delay: delay, callback: this.addBalconyRecursive, args: [min,max], callbackScope: this});
+   }
+
+   // make a debris object
+   addDebris() {
+      let pos = Math.random() * (this.buildingPos[1] - this.buildingPos[0]) + this.buildingPos[0];
+      let debris = new Debris(this, pos, -20, 'debris', 0).setOrigin(0.5);
+      this.obstacle.add(debris);
+   }
+
+   // recursive addDebris function
+   addDebrisRecursive(min, max) {
+      this.addDebris(this.obstacle);
+      let delay = Math.random() * (max - min) + min;
+      console.log("spawn debris in " + delay + "ms");
+      this.debrisTimer = this.time.addEvent({delay: delay, callback: this.addDebrisRecursive, args: [min,max], callbackScope: this});
    }
 
    update(time, delta) {
@@ -95,16 +113,11 @@ class Play extends Phaser.Scene {
       this.fpsText.setText(Math.round(this.game.loop.actualFps));
 
       // check if gameover states
-      if(!this.gameOver  && (this.stamina <= 0 || this.Cat.y > game.config.height)) {
-         this.gameOver = true;
-         this.obstacle.runChildUpdate = false;
-         this.balconyTimer.destroy();
-          // game over code here
-          this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
-          console.log("game over");
+      if(!this.over  && (this.stamina <= 0 || this.Cat.y > game.config.height)) {
+         this.gameOver();
       }
 
-      if(!this.gameOver && !pause) {
+      if(!this.over && !pause) {
          // restart updates
          if(!this.obstacle.runChildUpdate) this.obstacle.runChildUpdate = true;
          if(this.balconyTimer.paused) this.balconyTimer.paused = false;
@@ -155,5 +168,14 @@ class Play extends Phaser.Scene {
          this.balconyTimer.paused = true;
       }
 
+   }
+
+   // game over function
+   gameOver() {
+      this.gameOver = true;
+      this.obstacle.runChildUpdate = false;
+      this.balconyTimer.destroy();
+       this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
+       console.log("game over");
    }
 }
