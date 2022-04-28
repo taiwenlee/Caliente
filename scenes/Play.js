@@ -48,7 +48,7 @@ class Play extends Phaser.Scene {
       });
 
       // recursive call to add more balconies with random timing
-      this.addBalconyRecursive(1000, 7000);
+      this.addBalconyRecursive(2000, 5000);
 
       // recursive call to add more debris with random timing
       this.addDebrisRecursive(5000, 10000);
@@ -91,7 +91,7 @@ class Play extends Phaser.Scene {
    // make a debris object
    addDebris() {
       let pos = Math.random() * (this.buildingPos[1] - this.buildingPos[0]) + this.buildingPos[0];
-      let debris = new Debris(this, pos, -20, 'debris', 0).setOrigin(0.5);
+      let debris = new Debris(this, pos, -20, 'debris', 0, this.speed).setOrigin(0.5);
       this.obstacle.add(debris);
    }
 
@@ -121,6 +121,7 @@ class Play extends Phaser.Scene {
          // restart updates
          if(!this.obstacle.runChildUpdate) this.obstacle.runChildUpdate = true;
          if(this.balconyTimer.paused) this.balconyTimer.paused = false;
+         if(this.debrisTimer.paused) this.debrisTimer.paused = false;
 
          // update cat
          this.Cat.update(time, delta);
@@ -166,6 +167,7 @@ class Play extends Phaser.Scene {
       } else {
          this.obstacle.runChildUpdate = false;
          this.balconyTimer.paused = true;
+         this.debrisTimer.paused = true;
       }
 
    }

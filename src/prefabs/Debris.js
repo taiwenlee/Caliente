@@ -1,10 +1,10 @@
 class Debris extends Phaser.Physics.Arcade.Sprite {
-   constructor(scene, x, y, texture, frame) {
+   constructor(scene, x, y, texture, frame, speed) {
       super(scene, x, y, texture, frame);
 
       scene.add.existing(this);
       scene.physics.add.existing(this);
-      this.speed = 0; // falling speed of object (default sticks to wall)
+      this.speed = speed; // falling speed of object (default sticks to wall)
       this.scale = 0.5;
       this.isFalling = false;
       this.delay = null;
