@@ -74,11 +74,12 @@ class Play extends Phaser.Scene {
       let balcony = new Balcony(this, isLeft ? this.buildingPos[0] : this.buildingPos[1], -84, 'balcony', 0).setOrigin(0.5);
       if(!isLeft) balcony.flipX = true;
       this.obstacle.add(balcony);
+      console.log(this.obstacle.getChildren());
    }
 
    // recursive addBalcony function
    addBalconyRecursive(min, max) {
-      this.addBalcony();
+      this.addBalcony(this.obstacle);
       let delay = Math.random() * (max - min) + min;
       console.log("spawn balcony in " + delay + "ms");
       this.balconyTimer = this.time.addEvent({delay: delay, callback: this.addBalconyRecursive, args: [min,max], callbackScope: this});
@@ -105,10 +106,9 @@ class Play extends Phaser.Scene {
 
       if(!this.gameOver && !pause) {
          // restart updates
-         if(!this.obstacle.runChildUpdate) {
-            this.obstacle.runChildUpdate = true;
-            this.balconyTimer.paused = false;
-         }
+         if(!this.obstacle.runChildUpdate) this.obstacle.runChildUpdate = true;
+      
+         if(this.balconyTimer.paused) this.balconyTimer.paused = false;
 
          // update cat
          this.Cat.update(time, delta);
