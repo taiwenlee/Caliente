@@ -43,7 +43,7 @@ class Play extends Phaser.Scene {
       // copied from Nathan's code (https://nathanaltice.github.io/PaddleParkourP3/)
       this.obstacle = this.add.group({
          runChildUpdate: true,
-         maxSize: 10,
+         maxSize: 20,
       });
 
       // recursive call to add more balconies with random timing
@@ -107,8 +107,7 @@ class Play extends Phaser.Scene {
       if(!this.gameOver && !pause) {
          // restart updates
          if(!this.obstacle.runChildUpdate) this.obstacle.runChildUpdate = true;
-      
-         if(this.balconyTimer.paused) this.balconyTimer.paused = false;
+         //if(this.balconyTimer.paused) this.balconyTimer.paused = false;
 
          // update cat
          this.Cat.update(time, delta);

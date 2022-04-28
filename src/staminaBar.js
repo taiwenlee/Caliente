@@ -22,7 +22,7 @@ class staminaBar {
 
    draw() {
       // clears the health bar
-      //this.bar.clear();
+      this.bar.clear();
 
       // draw the border
       this.bar.fillStyle(0xFFFFFF, 1); // black border

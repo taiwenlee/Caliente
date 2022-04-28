@@ -2,7 +2,7 @@
 // Jake Indgin, Lily Pham, and Rachel Trieu
 
 let config = {
-   type: Phaser.WEBGL,
+   type: Phaser.AUTO,
    width: 600,
    height: 800,
    physics: {
