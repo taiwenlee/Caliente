@@ -1,0 +1,8 @@
+body {
+    background-color: beige;
+ }
+
+ @font-face {
+    font-family: OCRAEXT;
+    src: url('assets/OCRAEXT.TTF');
+}

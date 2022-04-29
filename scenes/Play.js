@@ -6,6 +6,7 @@ class Play extends Phaser.Scene {
    preload() {
       this.load.image('cat', 'assets/images/cat.png');
       this.load.image('pause', 'assets/images/pause.png');
+      this.load.image('pauseHover', 'assets/images/pauseHover.png');
       this.load.image('score', 'assets/images/score.png');
       this.load.image('buildingtile', 'assets/images/buildingtile.png');
       this.load.image('background', 'assets/images/starfield.png');
@@ -64,6 +65,11 @@ class Play extends Phaser.Scene {
       // temp fps text
       this.fpsText = this.add.text(10, 40, "0", { fill: '#0f0'}).setOrigin(0, 0.5);
    
+      // add setting hover
+      const settingHover = this.add.image(500, 50, 'pauseHover').setOrigin(0.5);
+      settingHover.depth = 10;
+      settingHover.scale = 0.15; // scaling for the button
+      
       // setting button
       const settingButton = this.add.image(500, 50, 'pause').setOrigin(0.5);
       settingButton.setInteractive();
@@ -71,14 +77,24 @@ class Play extends Phaser.Scene {
          pause = true;
          this.scene.launch("settingScene", {music: music});
       });
+      settingButton.on('pointerover', () => { // reveal hover image
+         settingButton.alpha = 0;
+      });
+      settingButton.on('pointerout', () => {  // return og image
+         settingButton.alpha = 1;
+      });
+      settingButton.input.alwaysEnabled = true; // prevents flickering between two images
+      settingButton.depth = 10;
       settingButton.scale = 0.15; // scaling for the button
 
       // score display
       const score = this.add.image(185, 50, 'score').setOrigin(0.5);
+      score.depth = 10;
       score.scale = 0.15; // scaling for the display
 
       // a temp height text
-      this.heightText = this.add.text(game.config.width/2 - 15, 40, "Height: " + this.height, { fill: '#ff1568'}).setOrigin(0.5);
+      this.heightText = this.add.text(game.config.width/2 - 15, 40, "Height: " + this.height, { fill: '#ff1568'}, {fontFamily: 'OCRAEXT',}).setOrigin(0.5);
+      this.heightText.depth = 10;
    }
 
    // makes a Balcony object
@@ -186,7 +202,7 @@ class Play extends Phaser.Scene {
       this.gameOver = true;
       this.obstacle.runChildUpdate = false;
       this.balconyTimer.destroy();
-       this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
+       this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', {fontFamily: 'OCRAEXT',}).setOrigin(0.5);
        console.log("game over");
    }
 }
