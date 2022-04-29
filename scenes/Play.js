@@ -75,8 +75,10 @@ class Play extends Phaser.Scene {
 
       // score display
       const score = this.add.image(185, 50, 'score').setOrigin(0.5);
-      score.scale = 0.15; // scaling for the button
+      score.scale = 0.15; // scaling for the display
 
+      // a temp height text
+      this.heightText = this.add.text(game.config.width/2 - 15, 40, "Height: " + this.height, { fill: '#ff1568'}).setOrigin(0.5);
    }
 
    // makes a Balcony object
