@@ -128,6 +128,15 @@ class Play extends Phaser.Scene {
       this.debrisTimer = this.time.addEvent({delay: delay, callback: this.addDebrisRecursive, args: [min,max], callbackScope: this});
    }
 
+   // game over function
+   gameOver() {
+      this.over = true;
+      this.obstacle.runChildUpdate = false;
+      this.balconyTimer.destroy();
+         this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', {fontFamily: 'OCRAEXT',}).setOrigin(0.5);
+         console.log("game over");
+   }
+
    update(time, delta) {
       // cheat code
       if(keyW.isDown) {
@@ -197,12 +206,4 @@ class Play extends Phaser.Scene {
 
    }
 
-   // game over function
-   gameOver() {
-      this.gameOver = true;
-      this.obstacle.runChildUpdate = false;
-      this.balconyTimer.destroy();
-       this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', {fontFamily: 'OCRAEXT',}).setOrigin(0.5);
-       console.log("game over");
-   }
 }

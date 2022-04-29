@@ -35,6 +35,7 @@ class Setting extends Phaser.Scene {
          pause = false;
          this.selectSound.play({volume: sfxVol});
          this.scene.stop();
+         this.scene.resume("menuScene");
       });
       exitButton.on('pointerover', () => { // reveal hover image
          exitButton.alpha = 0;

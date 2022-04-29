@@ -29,13 +29,6 @@ class Menu extends Phaser.Scene {
 
       this.add.text(20, 20, "Menu Scene", {fontFamily: 'OCRAEXT',});
 
-      // basic text button to go to play scene
-      /*const playButton = this.add.text(game.config.width/2, game.config.height/2, "Play", { fill: '#0f0'}).setOrigin(0.5);
-      playButton.setInteractive();
-      playButton.on('pointerdown', () => {
-         this.scene.start("playScene");
-      });*/
-
       // add play hover image
       const playHover = this.add.image(game.config.width/2, 400, 'playHover').setOrigin(0.5);
       playHover.scale = 0.15; // scaling for the button
@@ -60,12 +53,12 @@ class Menu extends Phaser.Scene {
       const settingHover = this.add.image(game.config.width/2, 500, 'settingsHover').setOrigin(0.5);
       settingHover.scale = 0.15; // scaling for the button
 
-      // temp setting button
+      // setting button
       const settingButton = this.add.image(game.config.width/2, 500, 'settings').setOrigin(0.5);
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
          this.selectSound.play({volume: sfxVol});
-         this.scene.launch("settingScene", {music: music});
+         this.scene.pause().launch("settingScene", {music: music});
       });
       settingButton.on('pointerover', () => { // reveal hover image
          settingButton.alpha = 0;
