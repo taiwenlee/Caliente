@@ -12,6 +12,7 @@ class Play extends Phaser.Scene {
       this.load.image('background', 'assets/images/starfield.png');
       this.load.image('balcony', 'assets/images/balcony.png');
       this.load.image('debris', 'assets/images/button.png');
+      this.load.image('warning', 'assets/images/button.png');
    }
 
    create() {
@@ -116,7 +117,7 @@ class Play extends Phaser.Scene {
    // make a debris object
    addDebris() {
       let pos = Math.random() * (this.buildingPos[1] - this.buildingPos[0]) + this.buildingPos[0];
-      let debris = new Debris(this, pos, -20, 'debris', 0, this.speed).setOrigin(0.5);
+      let debris = new Debris(this, pos, -40, 'debris', 0, this.speed).setOrigin(0.5);
       this.obstacle.add(debris);
    }
 

@@ -11,12 +11,17 @@ class Debris extends Phaser.Physics.Arcade.Sprite {
    }
 
    update(time, delta) {
+      // set up delay
       if(!this.delay) {
          this.delay = this.scene.time.delayedCall(1000, () => { 
             this.isFalling = true;
-        });
+            this.warning.destroy();
+         });
+         this.warning = this.scene.add.image(this.x, 80, 'warning').setOrigin(0.5);
+         this.warning.scale = 0.5;
       }
 
+      // after delay debris starts falling
       if(this.isFalling) {
          if(!this.scene.Cat.isResting) {
             this.y += this.scene.speed * delta / 10;
@@ -25,6 +30,7 @@ class Debris extends Phaser.Physics.Arcade.Sprite {
          this.y += this.speed * delta / 10;
       } 
 
+      // if cat collides with debris, game over
       if(this.scene.physics.world.collide(this, this.scene.Cat)) {
          this.scene.gameOver();
       }
