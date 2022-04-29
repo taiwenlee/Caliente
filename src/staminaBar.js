@@ -25,18 +25,18 @@ class staminaBar {
       this.bar.clear();
 
       // draw the border
-      this.bar.fillStyle(0xFFFFFF, 1); // black border
+      this.bar.fillStyle(0xff1568, 1); // pink border
       this.bar.fillRect(this.x, this.y, this.width, this.height);
 
       // draw the stamina bar background
-      this.bar.fillStyle(0x808080, 1); // white bar
+      this.bar.fillStyle(0xff1568, 1); // pink bar
       this.bar.fillRect(this.x + this.padding, this.y + this.padding, this.width - 2 * this.padding, this.height - 2 * this.padding);
    
       // sets stamina color
       if(this.value < 20) {
-         this.bar.fillStyle(0xFF0000, 1);
+         this.bar.fillStyle(0x4a002b, 1); // dark purple
       } else {
-         this.bar.fillStyle(0x00FF00, 1);
+         this.bar.fillStyle(0x4a002b, 1);
       }
 
       // draw the remaining stamina bar

@@ -4,7 +4,8 @@ class Menu extends Phaser.Scene {
    }
 
    preload() {
-      this.load.image('button', 'assets/images/button.png');
+      this.load.image('play', 'assets/images/play.png');
+      this.load.image('settings', 'assets/images/settings.png');
       this.load.image('menubackground', 'assets/images/tempbackground.jpg');
       this.load.audio('backgroundmusic', 'assets/sounds/Catlien.wav');
       this.load.audio('select', 'assets/sounds/select.wav');
@@ -33,32 +34,32 @@ class Menu extends Phaser.Scene {
          this.scene.start("playScene");
       });*/
 
-      // temp play button
-      const playButton = this.add.image(game.config.width/2, game.config.height/2, 'button').setOrigin(0.5);
+      // play button
+      const playButton = this.add.image(game.config.width/2, 400, 'play').setOrigin(0.5);
       playButton.setInteractive();
       playButton.on('pointerdown', () => {
          this.selectSound.play({volume: sfxVol});
          this.scene.start("playScene");
       });
-      playButton.scale = 0.3; // temp scaling for the button
+      playButton.scale = 0.15; // scaling for the button
 
       // temp setting button
-      const settingButton = this.add.image(game.config.width/2 + 60, game.config.height/2 + 40, 'button').setOrigin(0.5);
+      const settingButton = this.add.image(game.config.width/2, 500, 'settings').setOrigin(0.5);
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
          this.selectSound.play({volume: sfxVol});
          this.scene.launch("settingScene", {music: music});
       });
-      settingButton.scale = 0.3; // temp scaling for the button
+      settingButton.scale = 0.15; // scaling for the button
 
       // temp how to play button
-      const howToPlayButton = this.add.image(game.config.width/2 - 60, game.config.height/2 + 40, 'button').setOrigin(0.5);
-      howToPlayButton.setInteractive();
-      howToPlayButton.on('pointerdown', () => {
-         this.selectSound.play({volume: sfxVol});
-         this.scene.launch("howToPlayScene");
-      });
-      howToPlayButton.scale = 0.3; // temp scaling for the button
+      //const howToPlayButton = this.add.image(game.config.width/2 - 60, game.config.height/2 + 40, 'button').setOrigin(0.5);
+      //howToPlayButton.setInteractive();
+      //howToPlayButton.on('pointerdown', () => {
+         //this.selectSound.play({volume: sfxVol});
+         //this.scene.launch("howToPlayScene");
+      //});
+      //howToPlayButton.scale = 0.3; // scaling for the button
 
    }
 

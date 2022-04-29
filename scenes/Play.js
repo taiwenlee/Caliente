@@ -5,6 +5,8 @@ class Play extends Phaser.Scene {
 
    preload() {
       this.load.image('cat', 'assets/images/cat.png');
+      this.load.image('pause', 'assets/images/pause.png');
+      this.load.image('score', 'assets/images/score.png');
       this.load.image('buildingtile', 'assets/images/buildingtile.png');
       this.load.image('background', 'assets/images/starfield.png');
       this.load.image('balcony', 'assets/images/balcony.png');
@@ -62,14 +64,19 @@ class Play extends Phaser.Scene {
       // temp fps text
       this.fpsText = this.add.text(10, 40, "0", { fill: '#0f0'}).setOrigin(0, 0.5);
    
-      // temp setting button
-      const settingButton = this.add.image(game.config.width - 60, 40, 'button').setOrigin(0.5);
+      // setting button
+      const settingButton = this.add.image(500, 50, 'pause').setOrigin(0.5);
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
          pause = true;
          this.scene.launch("settingScene", {music: music});
       });
-      settingButton.scale = 0.3; // temp scaling for the button
+      settingButton.scale = 0.15; // scaling for the button
+
+      // score display
+      const score = this.add.image(185, 50, 'score').setOrigin(0.5);
+      score.scale = 0.15; // scaling for the button
+
    }
 
    // makes a Balcony object
