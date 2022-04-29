@@ -12,6 +12,7 @@ class Play extends Phaser.Scene {
       this.load.image('background', 'assets/images/starfield.png');
       this.load.image('balcony', 'assets/images/balcony.png');
       this.load.image('debris', 'assets/images/button.png');
+      this.load.image('hole', 'assets/images/button.png');
       this.load.image('warning', 'assets/images/button.png');
    }
 
@@ -56,6 +57,9 @@ class Play extends Phaser.Scene {
 
       // recursive call to add more debris with random timing
       this.addDebrisRecursive(5000, 10000);
+
+      // recursive call to add more holes with random timing
+      this.addHoleRecursive(5000, 10000);
 
       // stamina bar
       this.staminaBar = new staminaBar(this, 100, 725, 400, 30, 100, 4);
@@ -114,6 +118,22 @@ class Play extends Phaser.Scene {
       this.balconyTimer = this.time.addEvent({delay: delay, callback: this.addBalconyRecursive, args: [min,max], callbackScope: this});
    }
 
+   // make a hole object
+   addHole() {
+      let isLeft = Math.random() < 0.5;
+      let hole = new Hole(this, isLeft ? this.buildingPos[0] : this.buildingPos[1], -84, 'hole', 0).setOrigin(0.5);
+      if(!isLeft) hole.flipX = true;
+      this.obstacle.add(hole);
+   }
+
+   // recursive addHole function
+   addHoleRecursive(min, max) {
+      this.addHole(this.obstacle);
+      let delay = Math.random() * (max - min) + min;
+      console.log("spawn hole in " + delay + "ms");
+      this.holeTimer = this.time.addEvent({delay: delay, callback: this.addHoleRecursive, args: [min,max], callbackScope: this});
+   }
+
    // make a debris object
    addDebris() {
       let pos = Math.random() * (this.buildingPos[1] - this.buildingPos[0]) + this.buildingPos[0];
@@ -134,6 +154,8 @@ class Play extends Phaser.Scene {
       this.over = true;
       this.obstacle.runChildUpdate = false;
       this.balconyTimer.destroy();
+      this.debrisTimer.destroy();
+      this.holeTimer.destroy();
          this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', {fontFamily: 'OCRAEXT',}).setOrigin(0.5);
          console.log("game over");
    }
@@ -157,6 +179,7 @@ class Play extends Phaser.Scene {
          if(!this.obstacle.runChildUpdate) this.obstacle.runChildUpdate = true;
          if(this.balconyTimer.paused) this.balconyTimer.paused = false;
          if(this.debrisTimer.paused) this.debrisTimer.paused = false;
+         if(this.holeTimer.paused) this.holeTimer.paused = false;
 
          // update cat
          this.Cat.update(time, delta);
@@ -179,9 +202,6 @@ class Play extends Phaser.Scene {
             this.leftbuilding.tilePositionY -= this.speed * delta / 10;
             this.rightbuilding.tilePositionY += this.speed * delta / 10;
 
-            // resume spawning
-            //this.balconyTimer.paused = false;
-
             // reduces the stamina bar
             this.stamina -= 10*delta/1000;
             this.height += this.speed * delta / 1000;
@@ -190,6 +210,7 @@ class Play extends Phaser.Scene {
          } else {
             // stop balcony spawning
             this.balconyTimer.paused = true;
+            this.holeTimer.paused = true;
 
             // increase the stamina bar
             if(this.stamina < 100) {
@@ -203,6 +224,7 @@ class Play extends Phaser.Scene {
          this.obstacle.runChildUpdate = false;
          this.balconyTimer.paused = true;
          this.debrisTimer.paused = true;
+         this.holeTimer.paused = true;
       }
 
    }
