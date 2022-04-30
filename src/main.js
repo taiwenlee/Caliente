@@ -8,7 +8,8 @@ let config = {
    physics: {
       default: 'arcade',
    },
-   scene: [Menu, Play, Setting]
+   scene: [Menu, Play, Setting, Tutorial],
+   autoCenter: true,
 }
 
 // Phaser game object

@@ -13,10 +13,12 @@ class Setting extends Phaser.Scene {
       this.load.image('back', 'assets/images/back.png');
       this.load.image('backHover', 'assets/images/backHover.png');
       this.load.image('menubackground', 'assets/images/tempbackground.jpg');
+      this.load.image('background', 'assets/images/starfield.png');
    }
 
    create() {
-      //const settingsBG = this.add.image(300, 600, 'menubackground');
+      // background
+      this.starfield = this.add.tileSprite(0, 0, 600, 800, 'background').setOrigin(0, 0);
       
       this.add.text(20, 40, "Setting Scene");
 
@@ -166,5 +168,6 @@ class Setting extends Phaser.Scene {
    }
 
    update() {
+      this.starfield.tilePositionY -= 5;
    }
 }

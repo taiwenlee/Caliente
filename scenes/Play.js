@@ -13,7 +13,16 @@ class Play extends Phaser.Scene {
       this.load.image('balcony', 'assets/images/balcony.png');
       this.load.image('debris', 'assets/images/button.png');
       this.load.image('hole', 'assets/images/button.png');
-      this.load.image('warning', 'assets/images/button.png');
+      this.load.image('warning', 'assets/images/warning.png');
+      this.load.image('gameOver', 'assets/images/gameOver.png');
+      this.load.image('menu', 'assets/images/menu.png');
+      this.load.image('menuHover', 'assets/images/menuHover.png');      
+      this.load.image('restart', 'assets/images/restart.png');
+      this.load.image('restartHover', 'assets/images/restartHover.png');
+      this.load.audio('death', 'assets/sounds/deathstate.wav');
+      this.load.audio('warningSound', 'assets/sounds/debrisWarning.wav');
+      this.load.audio('overSound', 'assets/sounds/gameover.wav');
+      this.load.audio('jump', 'assets/sounds/jump.wav');
    }
 
    create() {
@@ -64,9 +73,6 @@ class Play extends Phaser.Scene {
       // stamina bar
       this.staminaBar = new staminaBar(this, 100, 725, 400, 30, 100, 4);
 
-      // a temp height text
-      this.heightText = this.add.text(game.config.width/2, 40, "Height: " + this.height, { fill: '#0f0'}).setOrigin(0.5);
-
       // temp fps text
       this.fpsText = this.add.text(10, 40, "0", { fill: '#0f0'}).setOrigin(0, 0.5);
    
@@ -98,7 +104,7 @@ class Play extends Phaser.Scene {
       score.scale = 0.15; // scaling for the display
 
       // a temp height text
-      this.heightText = this.add.text(game.config.width/2 - 15, 40, "Height: " + this.height, { fill: '#ff1568'}, {fontFamily: 'OCRAEXT',}).setOrigin(0.5);
+      this.heightText = this.add.text(300, 50, this.height, { fill: '#ff1568', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(0.5);
       this.heightText.depth = 10;
    }
 
@@ -139,6 +145,8 @@ class Play extends Phaser.Scene {
       let pos = Math.random() * (this.buildingPos[1] - this.buildingPos[0]) + this.buildingPos[0];
       let debris = new Debris(this, pos, -40, 'debris', 0, this.speed).setOrigin(0.5);
       this.obstacle.add(debris);
+      this.debrisSound = this.sound.add('warningSound', {volume: sfxVol});
+      this.debrisSound.play({volume: sfxVol});
    }
 
    // recursive addDebris function
@@ -156,11 +164,65 @@ class Play extends Phaser.Scene {
       this.balconyTimer.destroy();
       this.debrisTimer.destroy();
       this.holeTimer.destroy();
-         this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', {fontFamily: 'OCRAEXT',}).setOrigin(0.5);
-         console.log("game over");
+
+      this.deathSound = this.sound.add('death', {volume: sfxVol});
+      this.deathSound.play({volume: sfxVol});
+         
+      // game over image
+      const gameEnd = this.add.image(game.config.width/2, 300, 'gameOver').setOrigin(0.5);
+      gameEnd.scale = 0.15;
+      gameEnd.depth = 10;
+
+      this.endGame = this.sound.add('overSound', {volume: sfxVol});
+      this.endGame.play({volume: sfxVol});
+
+      // add restart hover
+      const restartHover = this.add.image(200, 400, 'restartHover').setOrigin(0.5);
+      restartHover.depth = 10;
+      restartHover.scale = 0.15; // scaling for the button
+      
+      // setting button
+      const restartButton = this.add.image(200, 400, 'restart').setOrigin(0.5);
+      restartButton.setInteractive();
+      restartButton.on('pointerdown', () => {
+         this.scene.restart();
+      });
+      restartButton.on('pointerover', () => { // reveal hover image
+         restartButton.alpha = 0;
+      });
+      restartButton.on('pointerout', () => {  // return og image
+         restartButton.alpha = 1;
+      });
+      restartButton.input.alwaysEnabled = true; // prevents flickering between two images
+      restartButton.depth = 10;
+      restartButton.scale = 0.15; // scaling for the button
+
+      // add menu hover
+      const menuHover = this.add.image(435, 400, 'menuHover').setOrigin(0.5);
+      menuHover.depth = 10;
+      menuHover.scale = 0.15; // scaling for the button
+      
+      // menu button
+      const menuButton = this.add.image(435, 400, 'menu').setOrigin(0.5);
+      menuButton.setInteractive();
+      menuButton.on('pointerdown', () => {
+         this.scene.switch("menuScene",);
+      });
+      menuButton.on('pointerover', () => { // reveal hover image
+         menuButton.alpha = 0;
+      });
+      menuButton.on('pointerout', () => {  // return og image
+         menuButton.alpha = 1;
+      });
+      menuButton.input.alwaysEnabled = true; // prevents flickering between two images
+      menuButton.depth = 10;
+      menuButton.scale = 0.15; // scaling for the button
+
+      console.log("game over");
    }
 
    update(time, delta) {
+
       // cheat code
       if(keyW.isDown) {
          this.stamina += 100;
@@ -205,7 +267,7 @@ class Play extends Phaser.Scene {
             // reduces the stamina bar
             this.stamina -= 10*delta/1000;
             this.height += this.speed * delta / 1000;
-            this.heightText.setText("Height: " + this.height.toFixed(0));
+            this.heightText.setText(this.height.toFixed(0));
 
          } else {
             // stop balcony spawning

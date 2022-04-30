@@ -17,8 +17,8 @@ class Debris extends Phaser.Physics.Arcade.Sprite {
             this.isFalling = true;
             this.warning.destroy();
          });
-         this.warning = this.scene.add.image(this.x, 80, 'warning').setOrigin(0.5);
-         this.warning.scale = 0.5;
+         this.warning = this.scene.add.image(this.x, 120, 'warning').setOrigin(0.5);
+         this.warning.scale = 0.15;
       }
 
       // after delay debris starts falling
