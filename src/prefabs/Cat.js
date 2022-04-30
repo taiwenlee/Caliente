@@ -22,7 +22,7 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
          this.y -= this.moveSpeed * delta / 200;
       }
       // jumps from one side to another
-      if(keySPACE.isDown && !this.isJumping) {
+      if(keySPACE.isDown && !this.isJumping && !this.isFalling && !this.isResting) {
          this.left ? this.left = false : this.left = true;
          this.isJumping = true;
       }
@@ -37,7 +37,7 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       }
 
       // fall down
-      if(keyS.isDown && !this.isJumping && !this.isResting) {
+      if(keyS.isDown && !this.isJumping && !this.isResting && !this.isFalling) {
          this.isFalling = true;
       }
 
