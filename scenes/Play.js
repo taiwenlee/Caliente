@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
       this.load.image('restart', 'assets/images/restart.png');
       this.load.image('restartHover', 'assets/images/restartHover.png');
       this.load.audio('death', 'assets/sounds/deathstate.wav');
-      this.load.audio('warningSound', 'assets/sounds/debrisWarning.wav');
+      this.load.audio('warningSound', 'assets/sounds/debriswarning.wav');
       this.load.audio('overSound', 'assets/sounds/gameover.wav');
       this.load.audio('jump', 'assets/sounds/jump.wav');
    }
