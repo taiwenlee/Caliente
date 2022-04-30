@@ -18,6 +18,9 @@ class Tutorial extends Phaser.Scene {
     create() {        
         // background
         this.starfield = this.add.tileSprite(0, 0, 600, 800, 'background').setOrigin(0, 0);
+
+        // select sound
+        this.selectSound = this.sound.add('select', {volume: sfxVol});
         
         const howTo = this.add.image(game.config.width/2, 90, 'howTo').setOrigin(0.5);
         howTo.scale = 0.15;

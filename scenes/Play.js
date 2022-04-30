@@ -246,7 +246,7 @@ class Play extends Phaser.Scene {
       if(!this.over && !pause) {
          // restart updates
          if(!this.obstacle.runChildUpdate) this.obstacle.runChildUpdate = true;
-         if(!this.balconyTimer.paused) this.balconyTimer.paused = true;
+         if(!this.balconys.runChildUpdate) this.balconys.runChildUpdate = true;
          if(this.balconyTimer.paused) this.balconyTimer.paused = false;
          if(this.debrisTimer.paused) this.debrisTimer.paused = false;
          if(this.holeTimer.paused) this.holeTimer.paused = false;
