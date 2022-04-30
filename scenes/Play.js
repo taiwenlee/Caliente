@@ -71,10 +71,10 @@ class Play extends Phaser.Scene {
       this.addBalconyRecursive(2000, 5000);
 
       // recursive call to add more debris with random timing
-      this.addDebrisRecursive(5000, 10000);
-
+      this.debrisTimer = this.time.addEvent({ delay: 5000, callback: this.addDebrisRecursive, args: [5000,10000], callbackScope: this});
+      
       // recursive call to add more holes with random timing
-      this.addHoleRecursive(5000, 10000);
+      this.holeTimer = this.time.addEvent({ delay: 2500, callback: this.addHoleRecursive, args: [5000,10000], callbackScope: this});
 
       // stamina bar
       this.staminaBar = new staminaBar(this, 100, 725, 400, 30, 100, 4);
@@ -126,7 +126,7 @@ class Play extends Phaser.Scene {
    addBalconyRecursive(min, max) {
       this.addBalcony();
       let delay = Math.random() * (max - min) + min;
-      console.log("spawn balcony in " + delay + "ms");
+      console.log("spawn balcony in " + (delay/1000).toFixed(2) + "sec");
       this.balconyTimer = this.time.addEvent({delay: delay, callback: this.addBalconyRecursive, args: [min,max], callbackScope: this});
    }
 
@@ -142,7 +142,7 @@ class Play extends Phaser.Scene {
    addHoleRecursive(min, max) {
       this.addHole();
       let delay = Math.random() * (max - min) + min;
-      console.log("spawn hole in " + delay + "ms");
+      console.log("spawn hole in " + (delay/1000).toFixed(2) + "sec");
       this.holeTimer = this.time.addEvent({delay: delay, callback: this.addHoleRecursive, args: [min,max], callbackScope: this});
    }
 
@@ -159,7 +159,7 @@ class Play extends Phaser.Scene {
    addDebrisRecursive(min, max) {
       this.addDebris();
       let delay = Math.random() * (max - min) + min;
-      console.log("spawn debris in " + delay + "ms");
+      console.log("spawn debris in " + (delay/1000).toFixed(2) + "sec");
       this.debrisTimer = this.time.addEvent({delay: delay, callback: this.addDebrisRecursive, args: [min,max], callbackScope: this});
    }
 

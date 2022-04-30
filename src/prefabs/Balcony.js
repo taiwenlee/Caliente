@@ -59,7 +59,6 @@ class Balcony extends Phaser.Physics.Arcade.Sprite {
 
       // delete this balcony if it goes off screen
       if(this.y > game.config.height+this.height*this.scale) {
-         console.log("destroy balcony");
          if(this.fallTimer) this.fallTimer.remove();
          this.destroy();
       }

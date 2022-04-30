@@ -27,7 +27,6 @@ class Hole extends Phaser.Physics.Arcade.Sprite {
 
       // delete this if it goes off screen
       if(this.y > game.config.height + this.height * this.scale) {
-         console.log("destroy obj");
          this.destroy();
       }
    }
