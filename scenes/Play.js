@@ -273,11 +273,13 @@ class Play extends Phaser.Scene {
             this.rightbuilding.tilePositionY += this.speed * delta / 10;
 
             // reduces the stamina bar
-            this.stamina -= 10*delta/1000;
-            this.height += this.speed * delta / 1000;
-            this.heightText.setText(this.height.toFixed(0));
+            if(!this.Cat.isFalling) {
+               this.stamina -= 10*delta/1000;
+               this.height += this.speed * delta / 1000;
+               this.heightText.setText(this.height.toFixed(0));
+            }
 
-         } else {
+         } else{
             // stop balcony spawning
             this.balconyTimer.paused = true;
             this.holeTimer.paused = true;
