@@ -12,7 +12,7 @@ class Play extends Phaser.Scene {
       this.load.image('background', 'assets/images/starfield.png');
       this.load.image('balcony', 'assets/images/balcony.png');
       this.load.image('debris', 'assets/images/button.png');
-      this.load.image('hole', 'assets/images/button.png');
+      this.load.image('hole', 'assets/images/cat.png');
       this.load.image('warning', 'assets/images/warning.png');
       this.load.image('gameOver', 'assets/images/gameOver.png');
       this.load.image('menu', 'assets/images/menu.png');
@@ -61,6 +61,12 @@ class Play extends Phaser.Scene {
          maxSize: 20,
       });
 
+      // Balcony group
+      this.balconys = this.add.group({
+         runChildUpdate: true,
+         maxSize: 20,
+      });
+
       // recursive call to add more balconies with random timing
       this.addBalconyRecursive(2000, 5000);
 
@@ -86,7 +92,7 @@ class Play extends Phaser.Scene {
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
          pause = true;
-         this.scene.launch("settingScene", {music: music});
+         this.scene.launch("settingScene");
       });
       settingButton.on('pointerover', () => { // reveal hover image
          settingButton.alpha = 0;
@@ -113,12 +119,12 @@ class Play extends Phaser.Scene {
       let isLeft = Math.random() < 0.5;
       let balcony = new Balcony(this, isLeft ? this.buildingPos[0] : this.buildingPos[1], -84, 'balcony', 0).setOrigin(0.5);
       if(!isLeft) balcony.flipX = true;
-      this.obstacle.add(balcony);
+      this.balconys.add(balcony);
    }
 
    // recursive addBalcony function
    addBalconyRecursive(min, max) {
-      this.addBalcony(this.obstacle);
+      this.addBalcony();
       let delay = Math.random() * (max - min) + min;
       console.log("spawn balcony in " + delay + "ms");
       this.balconyTimer = this.time.addEvent({delay: delay, callback: this.addBalconyRecursive, args: [min,max], callbackScope: this});
@@ -134,7 +140,7 @@ class Play extends Phaser.Scene {
 
    // recursive addHole function
    addHoleRecursive(min, max) {
-      this.addHole(this.obstacle);
+      this.addHole();
       let delay = Math.random() * (max - min) + min;
       console.log("spawn hole in " + delay + "ms");
       this.holeTimer = this.time.addEvent({delay: delay, callback: this.addHoleRecursive, args: [min,max], callbackScope: this});
@@ -151,7 +157,7 @@ class Play extends Phaser.Scene {
 
    // recursive addDebris function
    addDebrisRecursive(min, max) {
-      this.addDebris(this.obstacle);
+      this.addDebris();
       let delay = Math.random() * (max - min) + min;
       console.log("spawn debris in " + delay + "ms");
       this.debrisTimer = this.time.addEvent({delay: delay, callback: this.addDebrisRecursive, args: [min,max], callbackScope: this});
@@ -240,6 +246,7 @@ class Play extends Phaser.Scene {
       if(!this.over && !pause) {
          // restart updates
          if(!this.obstacle.runChildUpdate) this.obstacle.runChildUpdate = true;
+         if(!this.balconyTimer.paused) this.balconyTimer.paused = true;
          if(this.balconyTimer.paused) this.balconyTimer.paused = false;
          if(this.debrisTimer.paused) this.debrisTimer.paused = false;
          if(this.holeTimer.paused) this.holeTimer.paused = false;
@@ -285,6 +292,7 @@ class Play extends Phaser.Scene {
          }
       } else {
          this.obstacle.runChildUpdate = false;
+         this.balconys.runChildUpdate = false;
          this.balconyTimer.paused = true;
          this.debrisTimer.paused = true;
          this.holeTimer.paused = true;

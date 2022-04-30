@@ -20,9 +20,11 @@ class Menu extends Phaser.Scene {
    create() {
 
       // background music
-      music = this.sound.add('backgroundmusic', {volume: musicVol});
-      music.setLoop(true);
-      music.play();
+      if(!music) {
+         music = this.sound.add('backgroundmusic', {volume: musicVol});
+         music.setLoop(true);
+         music.play();
+      }
 
       // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
