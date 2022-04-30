@@ -34,8 +34,8 @@ class Menu extends Phaser.Scene {
       //this.background.setDisplaySize(game.config.width, game.config.height).setOrigin(0);
       this.starfield = this.add.tileSprite(0, 0, 600, 800, 'background').setOrigin(0, 0);
 
-      this.add.text(20, 20, "Menu Scene", {fontFamily: 'OCRAEXT',});
 
+      // add title
       const title = this.add.image(game.config.width/2, 225, 'title').setOrigin(0.5);
       title.scale = 0.13;
       

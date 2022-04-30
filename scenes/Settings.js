@@ -19,8 +19,6 @@ class Setting extends Phaser.Scene {
    create() {
       // background
       this.starfield = this.add.tileSprite(0, 0, 600, 800, 'background').setOrigin(0, 0);
-      
-      this.add.text(20, 40, "Setting Scene");
 
       // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
