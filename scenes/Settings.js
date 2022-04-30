@@ -11,7 +11,8 @@ class Setting extends Phaser.Scene {
       this.load.image('minus', 'assets/images/minus.png');
       this.load.image('minusHover', 'assets/images/minusHover.png');
       this.load.image('back', 'assets/images/back.png');
-      this.load.image('backHover', 'assets/images/backHover.png');
+      this.load.image('backHover', 'assets/images/backHover.png');            
+      this.load.image('settings', 'assets/images/settings.png');
       this.load.image('menubackground', 'assets/images/tempbackground.jpg');
       this.load.image('background', 'assets/images/starfield.png');
    }
@@ -23,13 +24,18 @@ class Setting extends Phaser.Scene {
       // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
 
+      // add settings image
+      const settings = this.add.image(game.config.width/2, 200, 'settings').setOrigin(0.5);
+      settings.depth = 10;
+      settings.scale = 0.15; // scaling for the button
+      
       // add back hover
-      const exitHover = this.add.image(300, 600, 'backHover').setOrigin(0.5);
+      const exitHover = this.add.image(300, 585, 'backHover').setOrigin(0.5);
       exitHover.depth = 10;
       exitHover.scale = 0.15; // scaling for the button
 
       // exit button
-      const exitButton = this.add.image(300, 600, 'back').setOrigin(0.5);
+      const exitButton = this.add.image(300, 585, 'back').setOrigin(0.5);
       exitButton.setInteractive();
       exitButton.on('pointerdown', () => {
          pause = false;
@@ -49,17 +55,17 @@ class Setting extends Phaser.Scene {
       //exitButton.tint = 0xff0000; // temp tinting for the button
 
       // music title image
-      const musicTitle= this.add.image(150, 300, 'music').setOrigin(0.5);
+      const musicTitle= this.add.image(150, 330, 'music').setOrigin(0.5);
       musicTitle.depth = 10;
       musicTitle.scale = 0.15; // scaling for the button
 
       // add music vol up hover
-      const musicUpHover = this.add.image(500, 300, 'plusHover').setOrigin(0.5);
+      const musicUpHover = this.add.image(500, 330, 'plusHover').setOrigin(0.5);
       musicUpHover.depth = 10;
       musicUpHover.scale = 0.15; // scaling for the button
 
       // music volume up button
-      const musicVolumeUpButton = this.add.image(500, 300, 'plus').setOrigin(0.5);
+      const musicVolumeUpButton = this.add.image(500, 330, 'plus').setOrigin(0.5);
       musicVolumeUpButton.setInteractive();
       musicVolumeUpButton.on('pointerdown', () => {
          this.selectSound.play({volume: sfxVol});
@@ -81,12 +87,12 @@ class Setting extends Phaser.Scene {
       //musicVolumeUpButton.tint = 0x00ff00; // temp tinting for the button
 
       // add music vol down hover
-      const musicDownHover = this.add.image(400, 300, 'minusHover').setOrigin(0.5);
+      const musicDownHover = this.add.image(400, 330, 'minusHover').setOrigin(0.5);
       musicDownHover.depth = 10;
       musicDownHover.scale = 0.15; // scaling for the button
 
       // music volume down button
-      const musicVolumeDownButton = this.add.image(400, 300, 'minus').setOrigin(0.5);
+      const musicVolumeDownButton = this.add.image(400, 330, 'minus').setOrigin(0.5);
       musicVolumeDownButton.setInteractive();
       musicVolumeDownButton.on('pointerdown', () => {
          this.selectSound.play({volume: sfxVol});
@@ -108,17 +114,17 @@ class Setting extends Phaser.Scene {
       //musicVolumeDownButton.tint = 0x00ff00; // temp tinting for the button
 
       // sfx title image
-      const sfxTitle= this.add.image(150, 400, 'sfx').setOrigin(0.5);
+      const sfxTitle= this.add.image(150, 450, 'sfx').setOrigin(0.5);
       sfxTitle.depth = 10;
       sfxTitle.scale = 0.15; // scaling for the button
 
       // add sfx vol up hover
-      const sfxUpHover = this.add.image(500, 400, 'plusHover').setOrigin(0.5);
+      const sfxUpHover = this.add.image(500, 450, 'plusHover').setOrigin(0.5);
       sfxUpHover.depth = 10;
       sfxUpHover.scale = 0.15; // scaling for the button
 
       // sfx volume up button
-      const sfxVolumeUpButton = this.add.image(500, 400, 'plus').setOrigin(0.5);
+      const sfxVolumeUpButton = this.add.image(500, 450, 'plus').setOrigin(0.5);
       sfxVolumeUpButton.setInteractive();
       sfxVolumeUpButton.on('pointerdown', () => {
          this.selectSound.play({volume: sfxVol});
@@ -139,12 +145,12 @@ class Setting extends Phaser.Scene {
       //sfxVolumeUpButton.tint = 0x00ff00; // temp tinting for the button
 
       // add sfx vol down hover
-      const sfxDownHover = this.add.image(400, 400, 'minusHover').setOrigin(0.5);
+      const sfxDownHover = this.add.image(400, 450, 'minusHover').setOrigin(0.5);
       sfxDownHover.depth = 10;
       sfxDownHover.scale = 0.15; // scaling for the button
 
       // sfx volume down button
-      const sfxVolumeDownButton = this.add.image(400, 400, 'minus').setOrigin(0.5);
+      const sfxVolumeDownButton = this.add.image(400, 450, 'minus').setOrigin(0.5);
       sfxVolumeDownButton.setInteractive();
       sfxVolumeDownButton.on('pointerdown', () => {
          this.selectSound.play({volume: sfxVol});

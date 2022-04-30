@@ -83,7 +83,7 @@ class Play extends Phaser.Scene {
       this.holeTimer = this.time.addEvent({ delay: 2500, callback: this.addHoleRecursive, args: [5000,10000], callbackScope: this});
 
       // stamina bar
-      this.staminaBar = new staminaBar(this, 100, 725, 400, 30, 100, 4);
+      this.staminaBar = new staminaBar(this, 100, 725, 400, 30, 100, 6);
 
       // temp fps text
       this.fpsText = this.add.text(10, 40, "0", { fill: '#0f0'}).setOrigin(0, 0.5);
@@ -116,7 +116,7 @@ class Play extends Phaser.Scene {
       score.scale = 0.15; // scaling for the display
 
       // a temp height text
-      this.heightText = this.add.text(300, 50, this.height, { fill: '#ff1568', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(0.5);
+      this.heightText = this.add.text(300, 50, this.height, { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(0.5);
       this.heightText.depth = 10;
    }
 
@@ -173,6 +173,7 @@ class Play extends Phaser.Scene {
    gameOver() {
       this.over = true;
       this.obstacle.runChildUpdate = false;
+      this.balconys.runChildUpdate = false;
       this.balconyTimer.destroy();
       this.debrisTimer.destroy();
       this.holeTimer.destroy();
@@ -180,11 +181,8 @@ class Play extends Phaser.Scene {
 
    // gameover menu function
    gameoverMenu() {
-
-
-         
       // game over image
-      const gameEnd = this.add.image(game.config.width/2, 300, 'gameOver').setOrigin(0.5);
+      const gameEnd = this.add.image(game.config.width/2, 350, 'gameOver').setOrigin(0.5);
       gameEnd.scale = 0.15;
       gameEnd.depth = 10;
 
@@ -192,12 +190,12 @@ class Play extends Phaser.Scene {
       this.endGame.play({volume: sfxVol});
 
       // add restart hover
-      const restartHover = this.add.image(200, 400, 'restartHover').setOrigin(0.5);
+      const restartHover = this.add.image(200, 450, 'restartHover').setOrigin(0.5);
       restartHover.depth = 10;
       restartHover.scale = 0.15; // scaling for the button
       
       // setting button
-      const restartButton = this.add.image(200, 400, 'restart').setOrigin(0.5);
+      const restartButton = this.add.image(200, 450, 'restart').setOrigin(0.5);
       restartButton.setInteractive();
       restartButton.on('pointerdown', () => {
          this.scene.restart();
@@ -213,12 +211,12 @@ class Play extends Phaser.Scene {
       restartButton.scale = 0.15; // scaling for the button
 
       // add menu hover
-      const menuHover = this.add.image(435, 400, 'menuHover').setOrigin(0.5);
+      const menuHover = this.add.image(435, 450, 'menuHover').setOrigin(0.5);
       menuHover.depth = 10;
       menuHover.scale = 0.15; // scaling for the button
       
       // menu button
-      const menuButton = this.add.image(435, 400, 'menu').setOrigin(0.5);
+      const menuButton = this.add.image(435, 450, 'menu').setOrigin(0.5);
       menuButton.setInteractive();
       menuButton.on('pointerdown', () => {
          this.scene.stop();

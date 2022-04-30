@@ -8,7 +8,7 @@ let config = {
    physics: {
       default: 'arcade',
    },
-   scene: [Menu, Play, Setting, Tutorial],
+   scene: [Menu, Play, Setting, Tutorial, Credits],
    autoCenter: true,
 }
 
