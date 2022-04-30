@@ -81,7 +81,7 @@ class Menu extends Phaser.Scene {
       const howToHover = this.add.image(game.config.width/2, 600, 'howToHover').setOrigin(0.5);
       howToHover.scale = 0.15; // scaling for the button
 
-      // setting button
+      // how to play button
       const howTo = this.add.image(game.config.width/2, 600, 'howTo').setOrigin(0.5);
       howTo.setInteractive();
       howTo.on('pointerdown', () => {
