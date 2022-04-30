@@ -206,6 +206,7 @@ class Play extends Phaser.Scene {
       const menuButton = this.add.image(435, 400, 'menu').setOrigin(0.5);
       menuButton.setInteractive();
       menuButton.on('pointerdown', () => {
+         this.scene.stop();
          this.scene.switch("menuScene",);
       });
       menuButton.on('pointerover', () => { // reveal hover image
