@@ -31,14 +31,20 @@ class Play extends Phaser.Scene {
       keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
       keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
-      // sets level, climbing speed, and stamina bar
+      // sets level, climbing speed, stamina bar, and score
       this.level = 1;
       this.startSpeed = 2;
       this.speed = this.startSpeed;
       this.stamina = 100;
       this.rest = false;
       this.height = 0;
+
+      // game over vars
       this.over = false;
+      this.overMenu = false;
+      this.moveCenter = true;
+      this.dx = null;
+      this.dy = null;
 
       // building positions
       this.buildingPos = [50, 550];
@@ -163,16 +169,19 @@ class Play extends Phaser.Scene {
       this.debrisTimer = this.time.addEvent({delay: delay, callback: this.addDebrisRecursive, args: [min,max], callbackScope: this});
    }
 
-   // game over function
+   // gameover function
    gameOver() {
       this.over = true;
       this.obstacle.runChildUpdate = false;
       this.balconyTimer.destroy();
       this.debrisTimer.destroy();
       this.holeTimer.destroy();
+   }
 
-      this.deathSound = this.sound.add('death', {volume: sfxVol});
-      this.deathSound.play({volume: sfxVol});
+   // gameover menu function
+   gameoverMenu() {
+
+
          
       // game over image
       const gameEnd = this.add.image(game.config.width/2, 300, 'gameOver').setOrigin(0.5);
@@ -292,6 +301,40 @@ class Play extends Phaser.Scene {
             
 
          }
+      } else if(this.over) {
+         // cat shifts towards center
+         if(this.moveCenter) {
+            // math to move cat towards center
+            if(!this.dx) {
+               this.dx = game.config.width/2 - this.Cat.x;
+               this.dy = game.config.height/2 - this.Cat.y;
+               let dist = Math.sqrt(this.dx*this.dx + this.dy*this.dy);
+               this.dx /= dist;
+               this.dy /= dist;
+            }
+            this.Cat.x += this.dx * this.Cat.moveSpeed * delta / 10;
+            this.Cat.y += this.dy * this.Cat.moveSpeed * delta / 10;
+            // once cat reaches near the center move it to center and stop moving to center
+            if(Math.abs(this.Cat.x - game.config.width/2) < Math.abs(this.dx * this.Cat.moveSpeed * delta / 5)) {
+               console.log("center reached");
+               this.moveCenter = false;
+               this.Cat.x = game.config.width/2;
+               this.Cat.y = game.config.height/2;
+            }
+         
+         // cats falls down and dies
+         } else if (!this.overMenu){
+            this.Cat.y += this.Cat.moveSpeed * delta / 10;
+            if(this.Cat.y > game.config.height + this.Cat.height * this.Cat.scale) {
+               this.overMenu = true;
+               this.deathSound = this.sound.add('death', {volume: sfxVol});
+               this.deathSound.play({volume: sfxVol});
+               this.gameoverMenu();
+            }
+         }
+         
+         
+
       } else {
          this.obstacle.runChildUpdate = false;
          this.balconys.runChildUpdate = false;
