@@ -31,6 +31,9 @@ class Play extends Phaser.Scene {
       keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
       keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
+       // select sound
+      this.selectSound = this.sound.add('select', {volume: sfxVol});
+
       // sets level, climbing speed, stamina bar, and score
       this.level = 1;
       this.startSpeed = 2;
@@ -98,6 +101,7 @@ class Play extends Phaser.Scene {
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
          pause = true;
+         this.selectSound.play({volume: sfxVol});
          this.scene.launch("settingScene");
       });
       settingButton.on('pointerover', () => { // reveal hover image
@@ -172,6 +176,8 @@ class Play extends Phaser.Scene {
    // gameover function
    gameOver() {
       this.over = true;
+      this.deathSound = this.sound.add('death', {volume: sfxVol});
+      this.deathSound.play({volume: sfxVol});
       this.obstacle.runChildUpdate = false;
       this.balconys.runChildUpdate = false;
       this.balconyTimer.destroy();
@@ -198,6 +204,8 @@ class Play extends Phaser.Scene {
       const restartButton = this.add.image(200, 450, 'restart').setOrigin(0.5);
       restartButton.setInteractive();
       restartButton.on('pointerdown', () => {
+         this.endGame.stop();
+         this.selectSound.play({volume: sfxVol});
          this.scene.restart();
       });
       restartButton.on('pointerover', () => { // reveal hover image
@@ -219,6 +227,8 @@ class Play extends Phaser.Scene {
       const menuButton = this.add.image(435, 450, 'menu').setOrigin(0.5);
       menuButton.setInteractive();
       menuButton.on('pointerdown', () => {
+         this.endGame.stop();
+         this.selectSound.play({volume: sfxVol});
          this.scene.stop();
          this.scene.switch("menuScene",);
       });
@@ -325,8 +335,6 @@ class Play extends Phaser.Scene {
             this.Cat.y += this.Cat.moveSpeed * delta / 10;
             if(this.Cat.y > game.config.height + this.Cat.height * this.Cat.scale) {
                this.overMenu = true;
-               this.deathSound = this.sound.add('death', {volume: sfxVol});
-               this.deathSound.play({volume: sfxVol});
                this.gameoverMenu();
             }
          }
