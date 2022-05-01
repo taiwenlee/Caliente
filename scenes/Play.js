@@ -23,6 +23,8 @@ class Play extends Phaser.Scene {
       this.load.audio('warningSound', 'assets/sounds/debriswarning.wav');
       this.load.audio('overSound', 'assets/sounds/gameover.wav');
       this.load.audio('jump', 'assets/sounds/jump.wav');
+      this.load.audio('suction1', 'assets/sounds/suction1.mp3');
+      this.load.audio('suction2', 'assets/sounds/suction2.mp3');
    }
 
    create() {
@@ -33,6 +35,18 @@ class Play extends Phaser.Scene {
 
        // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
+
+      // timer for suction sounds
+      if(!this.isJumping && !this.isFalling && !this.isResting) {
+         this.soundtimer = this.time.addEvent({
+            delay: 400,
+            callback: this.climbingSounds,
+            callbackScope: this,
+            loop: true
+      });
+      } else {
+         this.climbSounds.stop();
+   }
 
       // sets level, climbing speed, stamina bar, and score
       this.level = 1;
@@ -154,6 +168,14 @@ class Play extends Phaser.Scene {
       let delay = Math.random() * (max - min) + min;
       console.log("spawn hole in " + (delay/1000).toFixed(2) + "sec");
       this.holeTimer = this.time.addEvent({delay: delay, callback: this.addHoleRecursive, args: [min,max], callbackScope: this});
+   }
+
+   // check if cat is climbing and plays suction sound if it is
+   climbingSounds(){
+         this.climbSounds = this.sound.add('suction1', {volume: sfxVol});
+         this.climbSounds = this.sound.add('suction2', {volume: sfxVol});
+         this.climbSounds = Math.random() < 0.5 ? this.sound.add('suction1', {volume: sfxVol}) : this.sound.add('suction2', {volume: sfxVol});
+         this.climbSounds.play({volume: sfxVol});
    }
 
    // make a debris object
