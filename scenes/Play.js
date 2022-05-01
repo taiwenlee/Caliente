@@ -266,7 +266,7 @@ class Play extends Phaser.Scene {
       if(!this.over && !pause) {
          // update cat
          this.Cat.update(time, delta);
-         
+
          // restart updates
          this.resume();
 
@@ -351,7 +351,7 @@ class Play extends Phaser.Scene {
       this.balconyTimer.paused = true;
       this.debrisTimer.paused = true;
       this.holeTimer.paused = true;
-      this.Cat.climbsoundClock.paused = true;
+      this.Cat.disableClimbSounds();
    }
 
    resume() {
@@ -360,7 +360,7 @@ class Play extends Phaser.Scene {
       this.balconyTimer.paused = false;
       this.debrisTimer.paused = false;
       this.holeTimer.paused = false;
-      this.Cat.climbsoundClock.paused = false;
+      this.Cat.enableClimbSounds();
    }
 
 }
