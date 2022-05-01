@@ -25,11 +25,11 @@ class Setting extends Phaser.Scene {
       this.selectSound = this.sound.add('select', {volume: sfxVol});
 
       // music vol text
-      this.musicVolText = this.add.text(game.canvas.width/2 + 50, 330, musicVol * 100, { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(1, 0.5);
+      this.musicVolText = this.add.text(game.canvas.width/2 + 50, 330, (musicVol * 100).toFixed(0), { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(1, 0.5);
       this.musicVolText.depth = 10;
 
       // sfx vol text
-      this.sfxVolText = this.add.text(game.canvas.width/2 + 50, 450, sfxVol * 100, { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(1, 0.5);
+      this.sfxVolText = this.add.text(game.canvas.width/2 + 50, 450, (sfxVol * 100).toFixed(0), { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(1, 0.5);
       this.sfxVolText.depth = 10;
 
       // add settings image
