@@ -35,19 +35,7 @@ class Play extends Phaser.Scene {
 
        // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
-
-      // timer for suction sounds
-      if(!this.isJumping && !this.isFalling && !this.isResting) {
-         this.soundtimer = this.time.addEvent({
-            delay: 400,
-            callback: this.climbingSounds,
-            callbackScope: this,
-            loop: true
-      });
-      } else {
-         this.climbSounds.stop();
-   }
-
+   
       // sets level, climbing speed, stamina bar, and score
       this.level = 1;
       this.startSpeed = 2;
@@ -170,14 +158,6 @@ class Play extends Phaser.Scene {
       this.holeTimer = this.time.addEvent({delay: delay, callback: this.addHoleRecursive, args: [min,max], callbackScope: this});
    }
 
-   // check if cat is climbing and plays suction sound if it is
-   climbingSounds(){
-         this.climbSounds = this.sound.add('suction1', {volume: sfxVol});
-         this.climbSounds = this.sound.add('suction2', {volume: sfxVol});
-         this.climbSounds = Math.random() < 0.5 ? this.sound.add('suction1', {volume: sfxVol}) : this.sound.add('suction2', {volume: sfxVol});
-         this.climbSounds.play({volume: sfxVol});
-   }
-
    // make a debris object
    addDebris() {
       let pos = Math.random() * (this.buildingPos[1] - this.buildingPos[0]) + this.buildingPos[0];
@@ -205,6 +185,7 @@ class Play extends Phaser.Scene {
       this.balconyTimer.destroy();
       this.debrisTimer.destroy();
       this.holeTimer.destroy();
+      this.Cat.climbsoundClock.destroy();
    }
 
    // gameover menu function
@@ -283,15 +264,11 @@ class Play extends Phaser.Scene {
       }
 
       if(!this.over && !pause) {
-         // restart updates
-         if(!this.obstacle.runChildUpdate) this.obstacle.runChildUpdate = true;
-         if(!this.balconys.runChildUpdate) this.balconys.runChildUpdate = true;
-         if(this.balconyTimer.paused) this.balconyTimer.paused = false;
-         if(this.debrisTimer.paused) this.debrisTimer.paused = false;
-         if(this.holeTimer.paused) this.holeTimer.paused = false;
-
          // update cat
          this.Cat.update(time, delta);
+         
+         // restart updates
+         this.resume();
 
          // update stamina bar
          this.staminaBar.update(this.stamina);
@@ -306,19 +283,22 @@ class Play extends Phaser.Scene {
 
          // game progresses when cats not resting
          if(!this.Cat.isResting) {
-
             // update building tiles
             this.leftbuilding.tilePositionY -= this.speed * delta / 10;
             this.rightbuilding.tilePositionY += this.speed * delta / 10;
 
-            // reduces the stamina bar
+            // if cat is climbing
             if(!this.Cat.isFalling) {
+               // reduces the stamina bar
                this.stamina -= 10*delta/1000;
                this.height += this.speed * delta / 1000;
                this.heightText.setText(this.height.toFixed(0));
             }
 
          } else{
+            // stop climbing sounds
+            this.Cat.climbsoundClock.paused = true;
+
             // stop balcony spawning
             this.balconyTimer.paused = true;
             this.holeTimer.paused = true;
@@ -328,8 +308,6 @@ class Play extends Phaser.Scene {
                this.stamina += 40 * delta / 1000;
                if(this.stamina > 100) this.stamina = 100;
             }
-            
-
          }
       } else if(this.over) {
          // cat shifts towards center
@@ -361,16 +339,28 @@ class Play extends Phaser.Scene {
             }
          }
          
-         
-
       } else {
-         this.obstacle.runChildUpdate = false;
-         this.balconys.runChildUpdate = false;
-         this.balconyTimer.paused = true;
-         this.debrisTimer.paused = true;
-         this.holeTimer.paused = true;
+         this.pause();
       }
 
+   }
+
+   pause() {
+      this.obstacle.runChildUpdate = false;
+      this.balconys.runChildUpdate = false;
+      this.balconyTimer.paused = true;
+      this.debrisTimer.paused = true;
+      this.holeTimer.paused = true;
+      this.Cat.climbsoundClock.paused = true;
+   }
+
+   resume() {
+      this.obstacle.runChildUpdate = true;
+      this.balconys.runChildUpdate = true;
+      this.balconyTimer.paused = false;
+      this.debrisTimer.paused = false;
+      this.holeTimer.paused = false;
+      this.Cat.climbsoundClock.paused = false;
    }
 
 }
