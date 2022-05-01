@@ -36,6 +36,18 @@ class Play extends Phaser.Scene {
        // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
 
+      // timer for suction sounds
+      if(!this.isJumping && !this.isFalling && !this.isResting) {
+         this.soundtimer = this.time.addEvent({
+            delay: 400,
+            callback: this.climbingSounds,
+            callbackScope: this,
+            loop: true
+      });
+      } else {
+         this.climbSounds.stop();
+   }
+
       // sets level, climbing speed, stamina bar, and score
       this.level = 1;
       this.startSpeed = 2;
@@ -86,9 +98,6 @@ class Play extends Phaser.Scene {
       
       // recursive call to add more holes with random timing
       this.holeTimer = this.time.addEvent({ delay: 2500, callback: this.addHoleRecursive, args: [5000,10000], callbackScope: this});
-
-      // recursive call to continue climbing sounds
-      this.climbTimer = this.time.addEvent({ delay: 400, callback: this.addClimbingSoundsRecursive, callbackScope: this});
 
       // stamina bar
       this.staminaBar = new staminaBar(this, 100, 725, 400, 30, 100, 6);
@@ -160,25 +169,13 @@ class Play extends Phaser.Scene {
       console.log("spawn hole in " + (delay/1000).toFixed(2) + "sec");
       this.holeTimer = this.time.addEvent({delay: delay, callback: this.addHoleRecursive, args: [min,max], callbackScope: this});
    }
-   
-   // check if cat is climbing and plays suction sound if it is
-   addClimbingSounds(){
-      this.climbSounds = this.sound.add('suction1', {volume: sfxVol});
-      this.climbSounds = this.sound.add('suction2', {volume: sfxVol});
-      this.climbSounds = Math.random() < 0.5 ? this.sound.add('suction1', {volume: sfxVol}) : this.sound.add('suction2', {volume: sfxVol});
-      if(!this.isJumping && !this.isFalling && !this.isResting) {
-         this.climbSounds.play({volume: sfxVol});
-      } else {
-         console.log("Pausing footsteps");
-         this.climbTimer.paused = true;
-      }
-   }
 
-   // timer for suction sounds
-   addClimbingSoundsRecursive(){
-      this.addClimbingSounds();
-      console.log("Playing footsteps");
-      this.climbTimer = this.time.addEvent({delay: 400, callback: this.addClimbingSoundsRecursive, callbackScope: this});
+   // check if cat is climbing and plays suction sound if it is
+   climbingSounds(){
+         this.climbSounds = this.sound.add('suction1', {volume: sfxVol});
+         this.climbSounds = this.sound.add('suction2', {volume: sfxVol});
+         this.climbSounds = Math.random() < 0.5 ? this.sound.add('suction1', {volume: sfxVol}) : this.sound.add('suction2', {volume: sfxVol});
+         this.climbSounds.play({volume: sfxVol});
    }
 
    // make a debris object
