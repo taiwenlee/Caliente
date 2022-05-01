@@ -24,6 +24,14 @@ class Setting extends Phaser.Scene {
       // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
 
+      // music vol text
+      this.musicVolText = this.add.text(game.canvas.width/2 + 50, 330, musicVol * 100, { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(1, 0.5);
+      this.musicVolText.depth = 10;
+
+      // sfx vol text
+      this.sfxVolText = this.add.text(game.canvas.width/2 + 50, 450, sfxVol * 100, { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(1, 0.5);
+      this.sfxVolText.depth = 10;
+
       // add settings image
       const settings = this.add.image(game.config.width/2, 200, 'settings').setOrigin(0.5);
       settings.depth = 10;
@@ -74,6 +82,7 @@ class Setting extends Phaser.Scene {
          }
          musicVol = Math.min(1, musicVol);
          music.setVolume(musicVol);
+         this.musicVolText.setText((musicVol * 100).toFixed(0));
       });
       musicVolumeUpButton.on('pointerover', () => { // reveal hover image
          musicVolumeUpButton.alpha = 0;
@@ -101,6 +110,7 @@ class Setting extends Phaser.Scene {
          }
          musicVol = Math.max(0, musicVol);
          music.setVolume(musicVol);
+         this.musicVolText.setText((musicVol * 100).toFixed(0));
       });
       musicVolumeDownButton.on('pointerover', () => { // reveal hover image
          musicVolumeDownButton.alpha = 0;
@@ -132,6 +142,7 @@ class Setting extends Phaser.Scene {
             sfxVol += 0.1;
          }
          sfxVol = Math.min(1, sfxVol);
+         this.sfxVolText.setText((sfxVol * 100).toFixed(0));
       });
       sfxVolumeUpButton.on('pointerover', () => { // reveal hover image
          sfxVolumeUpButton.alpha = 0;
@@ -158,6 +169,8 @@ class Setting extends Phaser.Scene {
             sfxVol -= 0.1;
          }
          sfxVol = Math.max(0, sfxVol);
+         this.sfxVolText.setText((sfxVol * 100).toFixed(0));
+
       });
       sfxVolumeDownButton.on('pointerover', () => { // reveal hover image
          sfxVolumeDownButton.alpha = 0;

@@ -121,8 +121,8 @@ class Play extends Phaser.Scene {
       score.depth = 10;
       score.scale = 0.15; // scaling for the display
 
-      // a temp height text
-      this.heightText = this.add.text(300, 50, this.height, { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(0.5);
+      // a Score text
+      this.heightText = this.add.text(340, 50, this.height, { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(1, 0.5);
       this.heightText.depth = 10;
    }
 
