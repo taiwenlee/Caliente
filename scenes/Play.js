@@ -9,7 +9,7 @@ class Play extends Phaser.Scene {
       this.load.image('pauseHover', 'assets/images/pauseHover.png');
       this.load.image('score', 'assets/images/score.png');
       this.load.image('buildingtile', 'assets/images/buildingtile.png');
-      this.load.image('background', 'assets/images/starfield.png');
+      this.load.image('skyfield', 'assets/images/skyfield.png');
       this.load.image('balcony', 'assets/images/balcony.png');
       this.load.image('debris', 'assets/images/button.png');
       this.load.image('hole', 'assets/images/cat.png');
@@ -55,7 +55,7 @@ class Play extends Phaser.Scene {
       this.buildingPos = [50, 550];
 
       // background
-      this.starfield = this.add.tileSprite(0, 0, 600, 800, 'background').setOrigin(0, 0);
+      this.skyfield = this.add.tileSprite(0, 0, 600, 800, 'skyfield').setOrigin(0, 0);
 
       // building tiles
       this.leftbuilding = this.add.tileSprite(-150, 0, 200, 800, 'buildingtile').setOrigin(0, 0);
@@ -122,7 +122,7 @@ class Play extends Phaser.Scene {
       score.scale = 0.15; // scaling for the display
 
       // a Score text
-      this.heightText = this.add.text(340, 50, this.height, { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45}).setOrigin(1, 0.5);
+      this.heightText = this.add.text(340, 50, this.height, { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45, align: 'right'}).setOrigin(1, 0.5);
       this.heightText.depth = 10;
    }
 
@@ -249,7 +249,6 @@ class Play extends Phaser.Scene {
    }
 
    update(time, delta) {
-
       // cheat code
       if(keyW.isDown) {
          this.stamina += 100;
@@ -283,6 +282,8 @@ class Play extends Phaser.Scene {
 
          // game progresses when cats not resting
          if(!this.Cat.isResting) {
+            // update bg
+            this.skyfield.tilePositionY -= 1;
             // update building tiles
             this.leftbuilding.tilePositionY -= this.speed * delta / 10;
             this.rightbuilding.tilePositionY += this.speed * delta / 10;

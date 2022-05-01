@@ -12,12 +12,12 @@ class Tutorial extends Phaser.Scene {
         this.load.image('play', 'assets/images/play.png');
         this.load.image('playHover', 'assets/images/playHover.png');
         this.load.image('menubackground', 'assets/images/tempbackground.jpg');
-        this.load.image('background', 'assets/images/starfield.png');
+        this.load.image('skyfield', 'assets/images/skyfield.png');
     }
   
     create() {        
         // background
-        this.starfield = this.add.tileSprite(0, 0, 600, 800, 'background').setOrigin(0, 0);
+        this.skyfield = this.add.tileSprite(0, 0, 600, 800, 'skyfield').setOrigin(0, 0);
 
         // select sound
         this.selectSound = this.sound.add('select', {volume: sfxVol});
@@ -82,6 +82,6 @@ class Tutorial extends Phaser.Scene {
     }
   
     update() {
-        this.starfield.tilePositionY -= 5;
-     }
+        this.skyfield.tilePositionY -= 1;
+    }
   }

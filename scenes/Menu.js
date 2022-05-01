@@ -12,7 +12,7 @@ class Menu extends Phaser.Scene {
       this.load.image('howTo', 'assets/images/howTo.png');
       this.load.image('howToHover', 'assets/images/howToHover.png');
       this.load.image('menubackground', 'assets/images/tempbackground.jpg');
-      this.load.image('background', 'assets/images/starfield.png');
+      this.load.image('skyfield', 'assets/images/skyfield.png');
       this.load.audio('backgroundmusic', 'assets/sounds/Catlien.wav');
       this.load.audio('select', 'assets/sounds/select.wav');
       this.load.image('credits', 'assets/images/credits.png');
@@ -34,7 +34,7 @@ class Menu extends Phaser.Scene {
       // add a background image
       //this.background = this.add.image(0, 0, 'menubackground');
       //this.background.setDisplaySize(game.config.width, game.config.height).setOrigin(0);
-      this.starfield = this.add.tileSprite(0, 0, 600, 800, 'background').setOrigin(0, 0);
+      this.skyfield = this.add.tileSprite(0, 0, 600, 800, 'skyfield').setOrigin(0, 0);
 
 
       // add title
@@ -124,7 +124,7 @@ class Menu extends Phaser.Scene {
    }
 
    update() {
-         // move bg
-         this.starfield.tilePositionY -= 5;
+      // move bg
+      this.skyfield.tilePositionY -= 1;
    }
 }

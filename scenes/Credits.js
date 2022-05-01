@@ -8,7 +8,7 @@ class Credits extends Phaser.Scene {
        this.load.image('names', 'assets/images/names.png');
        this.load.image('back', 'assets/images/back.png');
        this.load.image('backHover', 'assets/images/backHover.png');
-       this.load.image('background', 'assets/images/starfield.png');
+       this.load.image('skyfield', 'assets/images/skyfield.png');
        this.load.audio('select', 'assets/sounds/select.wav');
     }
  
@@ -17,7 +17,7 @@ class Credits extends Phaser.Scene {
         // select sound
         this.selectSound = this.sound.add('select', {volume: sfxVol});
 
-        this.starfield = this.add.tileSprite(0, 0, 600, 800, 'background').setOrigin(0, 0);
+        this.skyfield = this.add.tileSprite(0, 0, 600, 800, 'skyfield').setOrigin(0, 0);
     
         // add credits image
         const credits = this.add.image(game.config.width/2, 200, 'credits').setOrigin(0.5);
@@ -55,8 +55,8 @@ class Credits extends Phaser.Scene {
     }
  
     update() {
-          // move bg
-          this.starfield.tilePositionY -= 5;
+        // move bg
+        this.skyfield.tilePositionY -= 1;
     }
  }
  
