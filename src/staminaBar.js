@@ -26,11 +26,11 @@ class staminaBar {
 
       // draw the border
       this.bar.fillStyle(0xf46d3a, 1); // lighter orange border
-      this.bar.fillRoundedRect(this.x, this.y, this.width, this.height, this.height / 2);
+      this.bar.fillRoundedRect(this.x, this.y, this.width, this.height, this.height / 4);
 
       // draw the stamina bar background
       this.bar.fillStyle(0xf46d3a, 1); // pink bar
-      this.bar.fillRoundedRect(this.x + this.padding, this.y + this.padding, this.width - 2 * this.padding, this.height - 2 * this.padding, (this.height - 2 * this.padding) /2);
+      this.bar.fillRoundedRect(this.x + this.padding, this.y + this.padding, this.width - 2 * this.padding, this.height - 2 * this.padding, (this.height - 2 * this.padding) / 4);
    
       // sets stamina color
       if(this.value < 20) {
@@ -40,7 +40,7 @@ class staminaBar {
       }
 
       // draw the remaining stamina bar
-      this.bar.fillRoundedRect(this.x + this.padding, this.y + this.padding, (this.width - this.height) * (this.value / this.max) + (this.height - 2 * this.padding), this.height - 2 * this.padding, (this.height - 2 * this.padding) /2);
+      this.bar.fillRoundedRect(this.x + this.padding, this.y + this.padding, (this.width - this.height) * (this.value / this.max) + (this.height - 2 * this.padding), this.height - 2 * this.padding, (this.height - 2 * this.padding) / 4);
    }
    
    update(value) {
