@@ -5,30 +5,34 @@ class Play extends Phaser.Scene {
 
    preload() {
       // image assets
-      this.load.image('cat', 'assets/images/cat.png');
-      this.load.image('pause', 'assets/images/pause.png');
-      this.load.image('pauseHover', 'assets/images/pauseHover.png');
-      this.load.image('score', 'assets/images/score.png');
-      this.load.image('buildingtile', 'assets/images/buildingtile.png');
-      this.load.image('skyfield', 'assets/images/skyfield.png');
-      this.load.image('balcony', 'assets/images/balcony.png');
-      this.load.image('steelbalcony', 'assets/images/steelbalcony.png');
-      this.load.image('debris', 'assets/images/brokenBuilding.png');
-      this.load.image('hole', 'assets/images/holeTile.png');
-      this.load.image('warning', 'assets/images/warning.png');
-      this.load.image('gameOver', 'assets/images/gameOver.png');
-      this.load.image('menu', 'assets/images/menu.png');
-      this.load.image('menuHover', 'assets/images/menuHover.png');      
-      this.load.image('restart', 'assets/images/restart.png');
-      this.load.image('restartHover', 'assets/images/restartHover.png');
+      this.load.image('cat', './assets/images/cat.png');
+      this.load.image('pause', './assets/images/pause.png');
+      this.load.image('pauseHover', './assets/images/pauseHover.png');
+      this.load.image('score', './assets/images/score.png');
+      this.load.image('buildingtile', './assets/images/buildingtile.png');
+      this.load.image('skyfield', './assets/images/skyfield.png');
+      this.load.image('balcony', './assets/images/balcony.png');
+      this.load.image('steelbalcony', './assets/images/steelbalcony.png');
+      this.load.image('debris', './assets/images/brokenBuilding.png');
+      this.load.image('hole', './assets/images/holeTile.png');
+      this.load.image('warning', './assets/images/warning.png');
+      this.load.image('gameOver', './assets/images/gameOver.png');
+      this.load.image('menu', './assets/images/menu.png');
+      this.load.image('menuHover', './assets/images/menuHover.png');      
+      this.load.image('restart', './assets/images/restart.png');
+      this.load.image('restartHover', './assets/images/restartHover.png');
+
+      // animation assets
+      //this.load.spritesheet('catwalk', './assets/animations/catwalk.png', {frameWidth: 327, frameHeight: 229});
+      this.load.atlas('catwalk', './assets/animations/catwalk.png', './assets/animations/catwalk.json');
       
       // audio assets
-      this.load.audio('death', 'assets/sounds/deathstate.wav');
-      this.load.audio('warningSound', 'assets/sounds/debriswarning.wav');
-      this.load.audio('overSound', 'assets/sounds/gameover.wav');
-      this.load.audio('jump', 'assets/sounds/jump.wav');
-      this.load.audio('suction1', 'assets/sounds/suction1.mp3');
-      this.load.audio('suction2', 'assets/sounds/suction2.mp3');
+      this.load.audio('death', './assets/sounds/deathstate.wav');
+      this.load.audio('warningSound', './assets/sounds/debriswarning.wav');
+      this.load.audio('overSound', './assets/sounds/gameover.wav');
+      this.load.audio('jump', './assets/sounds/jump.wav');
+      this.load.audio('suction1', './assets/sounds/suction1.mp3');
+      this.load.audio('suction2', './assets/sounds/suction2.mp3');
    }
 
    create() {
@@ -39,6 +43,14 @@ class Play extends Phaser.Scene {
 
        // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
+
+      // catwalk animation
+      this.anims.create({
+         key: 'catwalk',
+         frames: this.anims.generateFrameNames('catwalk', {prefix: 'catwalk', suffix: '.png', end: 7, zeroPad: 4 }),
+         frameRate: 10,
+         repeat: -1
+      });
    
       // sets level, climbing speed, stamina bar, and score
       this.level = 1;
@@ -66,7 +78,7 @@ class Play extends Phaser.Scene {
       this.rightbuilding.angle = 180;
 
       // add Alien Cat (p1)
-      this.Cat = new Cat(this, 60, game.config.height/2, 'cat', 0, this.buildingPos).setOrigin(0.5);
+      this.Cat = new Cat(this, 60, game.config.height/2, 'catwalk', 'catwalk0001.png', this.buildingPos).setOrigin(0.5);
 
       // Obstacle group
       // copied from Nathan's code (https://nathanaltice.github.io/PaddleParkourP3/)

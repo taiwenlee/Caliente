@@ -21,6 +21,9 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
    }
 
    update(time, delta) {
+      this.anims.play('catwalk', true);
+      this.flipX = this.left;
+      
       // initialize cat climb sound
       if(!this.climbsoundClock) {
          this.climbsoundClock = this.scene.time.addEvent({
