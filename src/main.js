@@ -7,9 +7,6 @@ let config = {
    height: 800,
    physics: {
       default: 'arcade',
-      arcade: {
-         debug: true,
-      }
    },
    scene: [Menu, Play, Setting, Tutorial, Credits],
    autoCenter: true,
