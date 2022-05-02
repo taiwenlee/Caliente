@@ -21,7 +21,7 @@ class staminaBar {
    }
 
    draw() {
-      // clears the health bar
+      // clears the stamina bar
       this.bar.clear();
 
       // draw the border
