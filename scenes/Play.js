@@ -67,7 +67,7 @@ class Play extends Phaser.Scene {
       this.moveDown = false;
 
       // building positions
-      this.buildingPos = [60, 540];
+      this.buildingPos = [80, 520];
 
       // background
       this.skyfield = this.add.tileSprite(0, 0, 600, 800, 'skyfield').setOrigin(0, 0);
@@ -78,7 +78,7 @@ class Play extends Phaser.Scene {
       this.rightbuilding.angle = 180;
 
       // add Alien Cat (p1)
-      this.Cat = new Cat(this, 60, game.config.height/2, 'catwalk', 'catwalk0001.png', this.buildingPos).setOrigin(0.5);
+      this.Cat = new Cat(this, 80, game.config.height/2, 'catwalk', 'catwalk0001.png', this.buildingPos).setOrigin(0.5);
 
       // Obstacle group
       // copied from Nathan's code (https://nathanaltice.github.io/PaddleParkourP3/)
@@ -158,7 +158,7 @@ class Play extends Phaser.Scene {
    // make a hole object
    addHole() {
       let isLeft = Math.random() < 0.5;
-      let hole = new Hole(this, isLeft ? this.buildingPos[0] - 60 : this.buildingPos[1] + 60, -84, 'hole', 0).setOrigin(0.5);
+      let hole = new Hole(this, isLeft ? this.buildingPos[0] - 82 : this.buildingPos[1] + 82, -84, 'hole', 0).setOrigin(0.5);
       if(!isLeft) hole.flipX = true;
       this.obstacle.add(hole);
    }
