@@ -5,7 +5,6 @@ class Play extends Phaser.Scene {
 
    preload() {
       // image assets
-      this.load.image('cat', './assets/images/cat.png');
       this.load.image('pause', './assets/images/pause.png');
       this.load.image('pauseHover', './assets/images/pauseHover.png');
       this.load.image('score', './assets/images/score.png');
@@ -23,8 +22,7 @@ class Play extends Phaser.Scene {
       this.load.image('restartHover', './assets/images/restartHover.png');
 
       // animation assets
-      //this.load.spritesheet('catwalk', './assets/animations/catwalk.png', {frameWidth: 327, frameHeight: 229});
-      this.load.atlas('catwalk', './assets/animations/catwalk.png', './assets/animations/catwalk.json');
+      this.load.atlas('cat', './assets/animations/cat.png', './assets/animations/cat.json');
       
       // audio assets
       this.load.audio('death', './assets/sounds/deathstate.wav');
@@ -44,12 +42,24 @@ class Play extends Phaser.Scene {
        // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
 
-      // catwalk animation
+      // cat animations
       this.anims.create({
-         key: 'catwalk',
-         frames: this.anims.generateFrameNames('catwalk', {prefix: 'catwalk', suffix: '.png', end: 7, zeroPad: 4 }),
+         key: 'climb',
+         frames: this.anims.generateFrameNames('cat', {prefix: 'climb', suffix: '.png', end: 7,}),
          frameRate: 10,
          repeat: -1
+      });
+
+      this.anims.create({
+         key: 'jump',
+         frames: this.anims.generateFrameNames('cat', {prefix: 'spin', suffix: '.png', end: 5,}),
+         frameRate: 10,
+      });
+
+      this.anims.create({
+         key: 'rest',
+         frames: this.anims.generateFrameNames('cat', {prefix: 'rest', suffix: '.png', end: 1,}),
+         frameRate: 10,
       });
    
       // sets level, climbing speed, stamina bar, and score
@@ -78,7 +88,7 @@ class Play extends Phaser.Scene {
       this.rightbuilding.angle = 180;
 
       // add Alien Cat (p1)
-      this.Cat = new Cat(this, 80, game.config.height/2, 'catwalk', 'catwalk0001.png', this.buildingPos).setOrigin(0.5);
+      this.Cat = new Cat(this, 80, game.config.height/2, 'cat', 'climb0.png', this.buildingPos).setOrigin(0.5);
 
       // Obstacle group
       // copied from Nathan's code (https://nathanaltice.github.io/PaddleParkourP3/)

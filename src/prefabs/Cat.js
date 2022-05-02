@@ -22,8 +22,6 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
    }
 
    update(time, delta) {
-      this.anims.play('catwalk', true);
-      this.flipX = this.left;
       
       // initialize cat climb sound
       if(!this.climbsoundClock) {
@@ -39,24 +37,15 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       if(this.y > this.startY && !this.isJumping && !this.isFalling && !this.isResting) {
          this.y -= this.moveSpeed * delta / 200;
       }
+
       // jumps from one side to another
       if(keySPACE.isDown && !this.isJumping && !this.isFalling && !this.isResting) {
          this.jumpSound.play({volume: sfxVol});
+         this.anims.play('jump', true);
          this.left ? this.left = false : this.left = true;
+         this.flipX = this.left;
          this.isJumping = true;
          if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;
-      }
-
-      // check if cat is currently jumping and updates position if it is
-      if(this.isJumping) {
-         this.left ? this.x -= this.moveSpeed * delta / 10 : this.x += this.moveSpeed * delta / 10;
-         
-         // if position reached, stop jumping
-         if(this.x <= this.leftPos || this.x >= this.rightPos) {
-            this.left ? this.x = this.leftPos : this.x = this.rightPos;
-            this.isJumping = false;
-            if(this.climbSoundisEnabled) this.climbsoundClock.paused = false;
-         }
       }
 
       // fall down
@@ -65,13 +54,29 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
          if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;
       }
 
-      if(this.isFalling) {
-         this.y += this.moveSpeed * delta / 20;
-      }
+      // check if cat is currently jumping and updates position if it is
+      if(this.isJumping) {
+         this.left ? this.x -= this.moveSpeed * delta / 10 : this.x += this.moveSpeed * delta / 10;
 
-      if(this.isResting && keyS.isUp) {
+         // if position reached, stop jumping
+         if(this.x <= this.leftPos || this.x >= this.rightPos) {
+            this.left ? this.x = this.leftPos : this.x = this.rightPos;
+            this.isJumping = false;
+            if(this.climbSoundisEnabled) this.climbsoundClock.paused = false;
+         }
+      } else if(this.isFalling) {
+         this.y += this.moveSpeed * delta / 20;
+      } else if(this.isResting && keyS.isUp) {
          this.isResting = false;
          if(this.climbSoundisEnabled) this.climbsoundClock.paused = false;
+      } else if (this.isResting) {
+         
+         this.anims.play('rest', true);
+         this.flipX = this.left;
+      } else {
+         // cat climb animation
+         this.anims.play('climb', true);
+         this.flipX = this.left;
       }
    }
 
