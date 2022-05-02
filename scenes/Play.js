@@ -11,6 +11,7 @@ class Play extends Phaser.Scene {
       this.load.image('buildingtile', 'assets/images/buildingtile.png');
       this.load.image('skyfield', 'assets/images/skyfield.png');
       this.load.image('balcony', 'assets/images/balcony.png');
+      this.load.image('steelbalcony', 'assets/images/steelbalcony.png');
       this.load.image('debris', 'assets/images/button.png');
       this.load.image('hole', 'assets/images/cat.png');
       this.load.image('warning', 'assets/images/warning.png');
@@ -78,7 +79,7 @@ class Play extends Phaser.Scene {
       });
 
       // recursive call to add more balconies with random timing
-      this.addBalconyRecursive(2000, 5000);
+      this.addBalconyRecursive(1000, 4000);
 
       // recursive call to add more debris with random timing
       this.debrisTimer = this.time.addEvent({ delay: 5000, callback: this.addDebrisRecursive, args: [5000,10000], callbackScope: this});
@@ -128,7 +129,8 @@ class Play extends Phaser.Scene {
    // makes a Balcony object
    addBalcony() {
       let isLeft = Math.random() < 0.5;
-      let balcony = new Balcony(this, isLeft ? this.buildingPos[0] : this.buildingPos[1], -84, 'balcony', 0).setOrigin(0.5);
+      let isMetal = Math.random() < 0.25;
+      let balcony = new Balcony(this, isLeft ? this.buildingPos[0] : this.buildingPos[1], -84, isMetal ? 'steelbalcony' : 'balcony', 0, isMetal).setOrigin(0.5);
       if(!isLeft) balcony.flipX = true;
       this.balconys.add(balcony);
    }

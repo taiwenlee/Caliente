@@ -1,5 +1,5 @@
 class Balcony extends Phaser.Physics.Arcade.Sprite {
-   constructor(scene, x, y, texture, frame) {
+   constructor(scene, x, y, texture, frame, isMetal) {
       super(scene, x, y, texture, frame);
 
       scene.add.existing(this);
@@ -11,6 +11,7 @@ class Balcony extends Phaser.Physics.Arcade.Sprite {
       this.fallTimer = null;
       this.scale = .2;
       this.depth = 5;
+      this.isMetal = isMetal;
    }
 
    update(time, delta) {
@@ -33,10 +34,10 @@ class Balcony extends Phaser.Physics.Arcade.Sprite {
             // delayed call for balcony to shake and fall
             if(this.fallTimer == null) {
                // first delay set to cause shake
-               this.fallTimer = this.scene.time.delayedCall(1500, () => { 
+               this.fallTimer = this.scene.time.delayedCall(this.isMetal ? 100 : 1500, () => { 
                   this.shake = true;
                   // second delay set to cause fall
-                  this.fallTimer = this.scene.time.delayedCall(500, () => {
+                  this.fallTimer = this.scene.time.delayedCall(this.isMetal ? 100 : 500, () => {
                      this.fall = true;
                      this.scene.Cat.isResting = false;
                      console.log("balcony falls");
