@@ -4,6 +4,7 @@ class Tutorial extends Phaser.Scene {
     }
 
     preload() {
+        // image assets
         this.load.image('howTo', 'assets/images/howTo.png');
         this.load.image('controls', 'assets/images/controls.png');
         this.load.image('tutorial', 'assets/images/tutorial.png');

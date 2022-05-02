@@ -4,6 +4,7 @@ class Menu extends Phaser.Scene {
    }
 
    preload() {
+      // image assets
       this.load.image('title', 'assets/images/title.png');
       this.load.image('play', 'assets/images/play.png');
       this.load.image('playHover', 'assets/images/playHover.png');
@@ -13,10 +14,12 @@ class Menu extends Phaser.Scene {
       this.load.image('howToHover', 'assets/images/howToHover.png');
       this.load.image('menubackground', 'assets/images/tempbackground.jpg');
       this.load.image('skyfield', 'assets/images/skyfield.png');
-      this.load.audio('backgroundmusic', 'assets/sounds/Catlien.wav');
-      this.load.audio('select', 'assets/sounds/select.wav');
       this.load.image('credits', 'assets/images/credits.png');
       this.load.image('creditsHover', 'assets/images/creditsHover.png');
+      
+      // audio assets
+      this.load.audio('backgroundmusic', 'assets/sounds/Catlien.wav');
+      this.load.audio('select', 'assets/sounds/select.wav');
    }
 
    create() {

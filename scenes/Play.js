@@ -4,6 +4,7 @@ class Play extends Phaser.Scene {
    }
 
    preload() {
+      // image assets
       this.load.image('cat', 'assets/images/cat.png');
       this.load.image('pause', 'assets/images/pause.png');
       this.load.image('pauseHover', 'assets/images/pauseHover.png');
@@ -12,14 +13,16 @@ class Play extends Phaser.Scene {
       this.load.image('skyfield', 'assets/images/skyfield.png');
       this.load.image('balcony', 'assets/images/balcony.png');
       this.load.image('steelbalcony', 'assets/images/steelbalcony.png');
-      this.load.image('debris', 'assets/images/button.png');
-      this.load.image('hole', 'assets/images/cat.png');
+      this.load.image('debris', 'assets/images/brokenBuilding.png');
+      this.load.image('hole', 'assets/images/holeTile.png');
       this.load.image('warning', 'assets/images/warning.png');
       this.load.image('gameOver', 'assets/images/gameOver.png');
       this.load.image('menu', 'assets/images/menu.png');
       this.load.image('menuHover', 'assets/images/menuHover.png');      
       this.load.image('restart', 'assets/images/restart.png');
       this.load.image('restartHover', 'assets/images/restartHover.png');
+      
+      // audio assets
       this.load.audio('death', 'assets/sounds/deathstate.wav');
       this.load.audio('warningSound', 'assets/sounds/debriswarning.wav');
       this.load.audio('overSound', 'assets/sounds/gameover.wav');
@@ -146,7 +149,7 @@ class Play extends Phaser.Scene {
    // make a hole object
    addHole() {
       let isLeft = Math.random() < 0.5;
-      let hole = new Hole(this, isLeft ? this.buildingPos[0] : this.buildingPos[1], -84, 'hole', 0).setOrigin(0.5);
+      let hole = new Hole(this, isLeft ? this.buildingPos[0] - 60 : this.buildingPos[1] - 60, -84, 'hole', 0).setOrigin(0.5);
       if(!isLeft) hole.flipX = true;
       this.obstacle.add(hole);
    }

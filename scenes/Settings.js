@@ -4,6 +4,7 @@ class Setting extends Phaser.Scene {
    }
 
    preload() {
+      // image assets
       this.load.image('music', 'assets/images/music.png');
       this.load.image('sfx', 'assets/images/sfx.png');
       this.load.image('plus', 'assets/images/plus.png');
