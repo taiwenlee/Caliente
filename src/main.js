@@ -16,7 +16,7 @@ let config = {
 let game = new Phaser.Game(config);
 
 // reserve keyboard vars
-let keySPACE, keyS, keyW;
+let keySPACE, keyS;
 
 // background music var
 let music;

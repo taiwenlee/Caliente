@@ -37,7 +37,6 @@ class Play extends Phaser.Scene {
       // define keys
       keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
       keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-      keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
        // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
@@ -282,10 +281,6 @@ class Play extends Phaser.Scene {
    }
 
    update(time, delta) {
-      // cheat code
-      if(keyW.isDown) {
-         this.stamina += 100;
-      }
 
       // check if gameover states
       if(!this.over  && (this.stamina <= 0 || this.Cat.y > game.config.height)) {
