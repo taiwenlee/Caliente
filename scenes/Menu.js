@@ -20,6 +20,7 @@ class Menu extends Phaser.Scene {
       // audio assets
       this.load.audio('backgroundmusic', 'assets/sounds/Catlien.wav');
       this.load.audio('select', 'assets/sounds/select.wav');
+      this.load.audio('back', 'assets/sounds/back.wav');
    }
 
    create() {

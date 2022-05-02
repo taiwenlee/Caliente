@@ -18,6 +18,9 @@ class Credits extends Phaser.Scene {
         // select sound
         this.selectSound = this.sound.add('select', {volume: sfxVol});
 
+        // back sound
+        this.backSound = this.sound.add('back', {volume: sfxVol});
+
         this.skyfield = this.add.tileSprite(0, 0, 600, 800, 'skyfield').setOrigin(0, 0);
     
         // add credits image
@@ -38,7 +41,7 @@ class Credits extends Phaser.Scene {
         exitButton.setInteractive();
         exitButton.on('pointerdown', () => {
             pause = false;
-            this.selectSound.play({volume: sfxVol});
+            this.backSound.play({volume: sfxVol});
             this.scene.stop();
             this.scene.resume("menuScene");
         });
