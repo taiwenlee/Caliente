@@ -12,7 +12,6 @@ class Menu extends Phaser.Scene {
       this.load.image('settingsHover', 'assets/images/settingsHover.png');      
       this.load.image('howTo', 'assets/images/howTo.png');
       this.load.image('howToHover', 'assets/images/howToHover.png');
-      this.load.image('menubackground', 'assets/images/tempbackground.jpg');
       this.load.image('skyfield', 'assets/images/skyfield.png');
       this.load.image('credits', 'assets/images/credits.png');
       this.load.image('creditsHover', 'assets/images/creditsHover.png');
@@ -36,8 +35,6 @@ class Menu extends Phaser.Scene {
       this.selectSound = this.sound.add('select', {volume: sfxVol});
 
       // add a background image
-      //this.background = this.add.image(0, 0, 'menubackground');
-      //this.background.setDisplaySize(game.config.width, game.config.height).setOrigin(0);
       this.skyfield = this.add.tileSprite(0, 0, 600, 800, 'skyfield').setOrigin(0, 0);
 
 

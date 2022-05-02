@@ -19,6 +19,8 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       this.jumpSound = this.scene.sound.add('jump', {volume: sfxVol}); // jump sound
       this.climbsoundClock = null;  // timer for suction sounds
       this.climbSoundisEnabled = true;  // track if suction sounds are enabled
+      this.animation = this.anims.play('climb', true);  // play climb animation
+      this.animationName = 'climb';  // set animation name
    }
 
    update(time, delta) {
@@ -42,6 +44,7 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       if(keySPACE.isDown && !this.isJumping && !this.isFalling && !this.isResting) {
          this.jumpSound.play({volume: sfxVol});
          this.anims.play('jump', true);
+         this.resizeHitbox();
          this.left ? this.left = false : this.left = true;
          this.flipX = this.left;
          this.isJumping = true;
@@ -70,13 +73,21 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
          this.isResting = false;
          if(this.climbSoundisEnabled) this.climbsoundClock.paused = false;
       } else if (this.isResting) {
-         
-         this.anims.play('rest', true);
-         this.flipX = this.left;
+         // resizes hitbox to match rest animation and reposition cat to balcony
+
+         if(this.anims.currentAnim.key != "rest") {
+            let prev = this.anims.currentFrame;
+            this.anims.play('rest', true);
+            this.flipX = this.left;
+            this.resizeHitbox();
+            console.log(this.anims.currentFrame.frame.height, prev.frame.height);
+            this.y -= (this.anims.currentFrame.frame.height - prev.frame.height) / 4;
+         }
       } else {
          // cat climb animation
          this.anims.play('climb', true);
          this.flipX = this.left;
+         this.resizeHitbox();
       }
    }
 
@@ -101,5 +112,9 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
    enableClimbSounds() {
       if(!this.climbSoundisEnabled) this.climbsoundClock.paused = false;
       this.climbSoundisEnabled = true;
+   }
+
+   resizeHitbox() {
+      this.body.setSize(this.anims.currentFrame.width, this.anims.currentFrame.height);
    }
 }

@@ -22,7 +22,7 @@ class Play extends Phaser.Scene {
       this.load.image('restartHover', './assets/images/restartHover.png');
 
       // animation assets
-      this.load.atlas('cat', './assets/animations/cat.png', './assets/animations/cat.json');
+      this.load.atlas('cat', './assets/images/cat.png', './assets/images/cat.json');
       
       // audio assets
       this.load.audio('death', './assets/sounds/deathstate.wav');

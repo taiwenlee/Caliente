@@ -14,7 +14,6 @@ class Setting extends Phaser.Scene {
       this.load.image('back', 'assets/images/back.png');
       this.load.image('backHover', 'assets/images/backHover.png');            
       this.load.image('settings', 'assets/images/settings.png');
-      this.load.image('menubackground', 'assets/images/tempbackground.jpg');
       this.load.image('skyfield', 'assets/images/skyfield.png');
    }
 

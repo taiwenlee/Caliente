@@ -1,0 +1,335 @@
+{
+	"textures": [
+		{
+			"image": "cat.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1848,
+				"h": 560
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "spin0.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 251,
+						"h": 224
+					}
+				},
+				{
+					"filename": "spin1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 254,
+						"y": 1,
+						"w": 251,
+						"h": 224
+					}
+				},
+				{
+					"filename": "spin2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 507,
+						"y": 1,
+						"w": 251,
+						"h": 224
+					}
+				},
+				{
+					"filename": "spin3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 760,
+						"y": 1,
+						"w": 251,
+						"h": 224
+					}
+				},
+				{
+					"filename": "spin4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 1013,
+						"y": 1,
+						"w": 251,
+						"h": 224
+					}
+				},
+				{
+					"filename": "spin5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 1266,
+						"y": 1,
+						"w": 251,
+						"h": 224
+					}
+				},
+				{
+					"filename": "rest0.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 327,
+						"h": 229
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 327,
+						"h": 229
+					},
+					"frame": {
+						"x": 1519,
+						"y": 1,
+						"w": 327,
+						"h": 229
+					}
+				},
+				{
+					"filename": "climb0.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 229,
+						"h": 327
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 229,
+						"h": 327
+					},
+					"frame": {
+						"x": 1,
+						"y": 227,
+						"w": 229,
+						"h": 327
+					}
+				},
+				{
+					"filename": "climb1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 229,
+						"h": 327
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 229,
+						"h": 327
+					},
+					"frame": {
+						"x": 232,
+						"y": 227,
+						"w": 229,
+						"h": 327
+					}
+				},
+				{
+					"filename": "climb2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 229,
+						"h": 327
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 229,
+						"h": 327
+					},
+					"frame": {
+						"x": 463,
+						"y": 227,
+						"w": 229,
+						"h": 327
+					}
+				},
+				{
+					"filename": "climb3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 229,
+						"h": 327
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 229,
+						"h": 327
+					},
+					"frame": {
+						"x": 694,
+						"y": 227,
+						"w": 229,
+						"h": 327
+					}
+				},
+				{
+					"filename": "climb4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 229,
+						"h": 327
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 229,
+						"h": 327
+					},
+					"frame": {
+						"x": 925,
+						"y": 227,
+						"w": 229,
+						"h": 327
+					}
+				},
+				{
+					"filename": "climb5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 229,
+						"h": 327
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 229,
+						"h": 327
+					},
+					"frame": {
+						"x": 1156,
+						"y": 227,
+						"w": 229,
+						"h": 327
+					}
+				},
+				{
+					"filename": "climb6.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 229,
+						"h": 327
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 229,
+						"h": 327
+					},
+					"frame": {
+						"x": 1387,
+						"y": 232,
+						"w": 229,
+						"h": 327
+					}
+				},
+				{
+					"filename": "climb7.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 229,
+						"h": 327
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 229,
+						"h": 327
+					},
+					"frame": {
+						"x": 1618,
+						"y": 232,
+						"w": 229,
+						"h": 327
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:407c2e951b312a1cb205b50ecb24b5ec:4b923bf71790011061b584f6014f66b8:0c90b9ae8b3d48d6500f6626a5b7af7b$"
+	}
+}
