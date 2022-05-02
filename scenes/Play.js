@@ -346,6 +346,9 @@ class Play extends Phaser.Scene {
             }
          }
       } else if(this.over) {
+         // cat fall animation
+         this.Cat.anims.play('fall', true);
+
          // cat moves up a little
          if(this.moveUp) {
             this.Cat.y -= 5 * delta / 10;
