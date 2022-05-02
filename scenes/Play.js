@@ -182,7 +182,7 @@ class Play extends Phaser.Scene {
 
    // make a debris object
    addDebris() {
-      let pos = Math.random() * (this.buildingPos[1] - this.buildingPos[0]) + this.buildingPos[0];
+      let pos = Math.random() * (this.buildingPos[1] - this.buildingPos[0] - 100) + this.buildingPos[0] + 50;
       let debris = new Debris(this, pos, -40, 'debris', 0, this.speed).setOrigin(0.5);
       this.obstacle.add(debris);
       this.debrisSound = this.sound.add('warningSound', {volume: sfxVol});
