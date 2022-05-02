@@ -48,7 +48,7 @@ class Play extends Phaser.Scene {
          frameRate: 10,
          repeat: -1
       });
-
+      
       this.catJump = this.anims.create({
          key: 'jump',
          frames: this.anims.generateFrameNames('cat', {prefix: 'spin', suffix: '.png', end: 5,}),
@@ -58,6 +58,12 @@ class Play extends Phaser.Scene {
       this.catRest = this.anims.create({
          key: 'rest',
          frames: this.anims.generateFrameNames('cat', {prefix: 'rest', suffix: '.png', end: 1,}),
+         frameRate: 1,
+      });
+
+      this.catFall = this.anims.create({
+         key: 'fall',
+         frames: this.anims.generateFrameNames('cat', {prefix: 'fall', suffix: '.png', end: 1,}),
          frameRate: 1,
       });
    

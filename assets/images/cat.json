@@ -4,135 +4,30 @@
 			"image": "cat.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1848,
-				"h": 560
+				"w": 946,
+				"h": 1341
 			},
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "spin0.png",
+					"filename": "fall0.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 251,
-						"h": 224
+						"w": 327,
+						"h": 229
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 251,
-						"h": 224
+						"w": 327,
+						"h": 229
 					},
 					"frame": {
 						"x": 1,
 						"y": 1,
-						"w": 251,
-						"h": 224
-					}
-				},
-				{
-					"filename": "spin1.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 251,
-						"h": 224
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 251,
-						"h": 224
-					},
-					"frame": {
-						"x": 254,
-						"y": 1,
-						"w": 251,
-						"h": 224
-					}
-				},
-				{
-					"filename": "spin2.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 251,
-						"h": 224
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 251,
-						"h": 224
-					},
-					"frame": {
-						"x": 507,
-						"y": 1,
-						"w": 251,
-						"h": 224
-					}
-				},
-				{
-					"filename": "spin3.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 251,
-						"h": 224
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 251,
-						"h": 224
-					},
-					"frame": {
-						"x": 760,
-						"y": 1,
-						"w": 251,
-						"h": 224
-					}
-				},
-				{
-					"filename": "spin4.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 251,
-						"h": 224
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 251,
-						"h": 224
-					},
-					"frame": {
-						"x": 1013,
-						"y": 1,
-						"w": 251,
-						"h": 224
-					}
-				},
-				{
-					"filename": "spin5.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 251,
-						"h": 224
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 251,
-						"h": 224
-					},
-					"frame": {
-						"x": 1266,
-						"y": 1,
-						"w": 251,
-						"h": 224
+						"w": 327,
+						"h": 229
 					}
 				},
 				{
@@ -150,7 +45,7 @@
 						"h": 229
 					},
 					"frame": {
-						"x": 1519,
+						"x": 330,
 						"y": 1,
 						"w": 327,
 						"h": 229
@@ -171,8 +66,8 @@
 						"h": 327
 					},
 					"frame": {
-						"x": 1,
-						"y": 227,
+						"x": 659,
+						"y": 1,
 						"w": 229,
 						"h": 327
 					}
@@ -192,8 +87,8 @@
 						"h": 327
 					},
 					"frame": {
-						"x": 232,
-						"y": 227,
+						"x": 1,
+						"y": 232,
 						"w": 229,
 						"h": 327
 					}
@@ -213,8 +108,8 @@
 						"h": 327
 					},
 					"frame": {
-						"x": 463,
-						"y": 227,
+						"x": 232,
+						"y": 232,
 						"w": 229,
 						"h": 327
 					}
@@ -234,8 +129,8 @@
 						"h": 327
 					},
 					"frame": {
-						"x": 694,
-						"y": 227,
+						"x": 463,
+						"y": 330,
 						"w": 229,
 						"h": 327
 					}
@@ -255,8 +150,8 @@
 						"h": 327
 					},
 					"frame": {
-						"x": 925,
-						"y": 227,
+						"x": 694,
+						"y": 330,
 						"w": 229,
 						"h": 327
 					}
@@ -276,8 +171,8 @@
 						"h": 327
 					},
 					"frame": {
-						"x": 1156,
-						"y": 227,
+						"x": 1,
+						"y": 561,
 						"w": 229,
 						"h": 327
 					}
@@ -297,8 +192,8 @@
 						"h": 327
 					},
 					"frame": {
-						"x": 1387,
-						"y": 232,
+						"x": 232,
+						"y": 561,
 						"w": 229,
 						"h": 327
 					}
@@ -318,10 +213,136 @@
 						"h": 327
 					},
 					"frame": {
-						"x": 1618,
-						"y": 232,
+						"x": 463,
+						"y": 659,
 						"w": 229,
 						"h": 327
+					}
+				},
+				{
+					"filename": "spin0.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 694,
+						"y": 659,
+						"w": 251,
+						"h": 224
+					}
+				},
+				{
+					"filename": "spin1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 694,
+						"y": 885,
+						"w": 251,
+						"h": 224
+					}
+				},
+				{
+					"filename": "spin2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 1,
+						"y": 890,
+						"w": 251,
+						"h": 224
+					}
+				},
+				{
+					"filename": "spin3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 254,
+						"y": 988,
+						"w": 251,
+						"h": 224
+					}
+				},
+				{
+					"filename": "spin4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 1,
+						"y": 1116,
+						"w": 251,
+						"h": 224
+					}
+				},
+				{
+					"filename": "spin5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 251,
+						"h": 224
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 251,
+						"h": 224
+					},
+					"frame": {
+						"x": 507,
+						"y": 1111,
+						"w": 251,
+						"h": 224
 					}
 				}
 			]
@@ -330,6 +351,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:407c2e951b312a1cb205b50ecb24b5ec:4b923bf71790011061b584f6014f66b8:0c90b9ae8b3d48d6500f6626a5b7af7b$"
+		"smartupdate": "$TexturePacker:SmartUpdate:c091b2d75845a3201b1f317ccd3bd926:6a7ac5a7f8e41f996d2aad2541d78c96:0c90b9ae8b3d48d6500f6626a5b7af7b$"
 	}
 }

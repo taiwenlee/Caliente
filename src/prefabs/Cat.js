@@ -69,6 +69,9 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
          }
       } else if(this.isFalling) {
          this.y += this.moveSpeed * delta / 20;
+         this.anims.play('fall', true);
+         this.resizeHitbox();
+         this.flipX = this.left;
       } else if(this.isResting && keyS.isUp) {
          this.isResting = false;
          if(this.climbSoundisEnabled) this.climbsoundClock.paused = false;
