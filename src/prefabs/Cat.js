@@ -79,7 +79,6 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
          // resizes hitbox to match rest animation and reposition cat to balcony
          if(this.anims.currentAnim.key != "rest") {
             let prev = this.anims.currentFrame;
-            console.log(prev);
             this.anims.play('rest', true);
             this.flipX = this.left;
             this.resizeHitbox();
