@@ -8,6 +8,7 @@ class Debris extends Phaser.Physics.Arcade.Sprite {
       this.scale = 0.5;
       this.isFalling = false;
       this.delay = null;
+      this.randomSpin = Math.random() * 1 - 0.5;
    }
 
    update(time, delta) {
@@ -25,6 +26,7 @@ class Debris extends Phaser.Physics.Arcade.Sprite {
       if(this.isFalling) {
          if(!this.scene.Cat.isResting) {
             this.y += this.scene.speed * delta / 10;
+            this.rotation += this.randomSpin * delta / 1000;
 
          }
          this.y += this.speed * delta / 10;
