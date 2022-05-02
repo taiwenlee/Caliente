@@ -43,23 +43,23 @@ class Play extends Phaser.Scene {
       this.selectSound = this.sound.add('select', {volume: sfxVol});
 
       // cat animations
-      this.anims.create({
+      this.catClimb = this.anims.create({
          key: 'climb',
          frames: this.anims.generateFrameNames('cat', {prefix: 'climb', suffix: '.png', end: 7,}),
          frameRate: 10,
          repeat: -1
       });
 
-      this.anims.create({
+      this.catJump = this.anims.create({
          key: 'jump',
          frames: this.anims.generateFrameNames('cat', {prefix: 'spin', suffix: '.png', end: 5,}),
          frameRate: 10,
       });
 
-      this.anims.create({
+      this.catRest = this.anims.create({
          key: 'rest',
          frames: this.anims.generateFrameNames('cat', {prefix: 'rest', suffix: '.png', end: 1,}),
-         frameRate: 10,
+         frameRate: 1,
       });
    
       // sets level, climbing speed, stamina bar, and score
@@ -309,6 +309,10 @@ class Play extends Phaser.Scene {
          // update speed based on level
          this.speed = Math.log(this.level) + this.startSpeed;
          this.Cat.moveSpeed = this.speed * 5;
+
+         // update animation speed
+         this.catClimb.frameRate = this.speed * 5;
+         this.catJump.frameRate = this.speed * 5;
 
          // game progresses when cats not resting
          if(!this.Cat.isResting) {
