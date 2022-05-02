@@ -77,14 +77,13 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
          if(this.climbSoundisEnabled) this.climbsoundClock.paused = false;
       } else if (this.isResting) {
          // resizes hitbox to match rest animation and reposition cat to balcony
-
          if(this.anims.currentAnim.key != "rest") {
             let prev = this.anims.currentFrame;
+            console.log(prev);
             this.anims.play('rest', true);
             this.flipX = this.left;
             this.resizeHitbox();
-            console.log(this.anims.currentFrame.frame.height, prev.frame.height);
-            this.y -= (this.anims.currentFrame.frame.height - prev.frame.height) / 4;
+            this.y += 10;
          }
       } else {
          // cat climb animation
