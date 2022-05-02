@@ -22,6 +22,9 @@ class Tutorial extends Phaser.Scene {
 
         // select sound
         this.selectSound = this.sound.add('select', {volume: sfxVol});
+
+        // back sound
+        this.backSound = this.sound.add('back', {volume: sfxVol});
         
         const howTo = this.add.image(game.config.width/2, 90, 'howTo').setOrigin(0.5);
         howTo.scale = 0.15;
@@ -66,7 +69,7 @@ class Tutorial extends Phaser.Scene {
         exitButton.setInteractive();
         exitButton.on('pointerdown', () => {
             pause = false;
-            this.selectSound.play({volume: sfxVol});
+            this.backSound.play({volume: sfxVol});
             this.scene.stop();
             this.scene.resume("menuScene");
         });

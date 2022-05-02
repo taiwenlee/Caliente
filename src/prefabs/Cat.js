@@ -16,6 +16,7 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       this.startY = y;          // set the starting y position of the cat
       this.suction1 = this.scene.sound.add('suction1', {volume: sfxVol});  // suction 1 sound
       this.suction2 = this.scene.sound.add('suction2', {volume: sfxVol});  // suction 2 sound
+      this.jumpSound = this.scene.sound.add('jump', {volume: sfxVol}); // jump sound
       this.climbsoundClock = null;  // timer for suction sounds
       this.climbSoundisEnabled = true;  // track if suction sounds are enabled
    }
@@ -37,6 +38,7 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       }
       // jumps from one side to another
       if(keySPACE.isDown && !this.isJumping && !this.isFalling && !this.isResting) {
+         this.jumpSound.play({volume: sfxVol});
          this.left ? this.left = false : this.left = true;
          this.isJumping = true;
          if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;

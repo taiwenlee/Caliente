@@ -25,6 +25,9 @@ class Setting extends Phaser.Scene {
       // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
 
+      // back sound
+      this.backSound = this.sound.add('back', {volume: sfxVol});
+
       // music vol text
       this.musicVolText = this.add.text(game.canvas.width/2 + 20, 330, (musicVol * 100).toFixed(0), { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45, align: 'right'}).setOrigin(1, 0.5);
       this.musicVolText.depth = 11;
@@ -48,7 +51,7 @@ class Setting extends Phaser.Scene {
       exitButton.setInteractive();
       exitButton.on('pointerdown', () => {
          pause = false;
-         this.selectSound.play({volume: sfxVol});
+         this.backSound.play({volume: sfxVol});
          this.scene.stop();
          this.scene.resume("menuScene");
       });
@@ -105,7 +108,7 @@ class Setting extends Phaser.Scene {
       const musicVolumeDownButton = this.add.image(405, 330, 'minus').setOrigin(0.5);
       musicVolumeDownButton.setInteractive();
       musicVolumeDownButton.on('pointerdown', () => {
-         this.selectSound.play({volume: sfxVol});
+         this.backSound.play({volume: sfxVol});
          if(musicVol >= 0) {
             musicVol -= 0.1;
          }
@@ -165,7 +168,7 @@ class Setting extends Phaser.Scene {
       const sfxVolumeDownButton = this.add.image(405, 450, 'minus').setOrigin(0.5);
       sfxVolumeDownButton.setInteractive();
       sfxVolumeDownButton.on('pointerdown', () => {
-         this.selectSound.play({volume: sfxVol});
+         this.backSound.play({volume: sfxVol});
          if(sfxVol >= 0) {
             sfxVol -= 0.1;
          }
