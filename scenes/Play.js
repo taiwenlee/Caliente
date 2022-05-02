@@ -104,9 +104,6 @@ class Play extends Phaser.Scene {
 
       // stamina bar
       this.staminaBar = new staminaBar(this, 100, 725, 400, 30, 100, 6);
-
-      // temp fps text
-      this.fpsText = this.add.text(10, 40, "0", { fill: '#0f0'}).setOrigin(0, 0.5);
    
       // add setting hover
       const settingHover = this.add.image(500, 50, 'pauseHover').setOrigin(0.5);
@@ -279,9 +276,6 @@ class Play extends Phaser.Scene {
       if(keyW.isDown) {
          this.stamina += 100;
       }
-
-      // update fps text
-      this.fpsText.setText(Math.round(this.game.loop.actualFps));
 
       // check if gameover states
       if(!this.over  && (this.stamina <= 0 || this.Cat.y > game.config.height)) {
