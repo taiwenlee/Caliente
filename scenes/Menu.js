@@ -63,11 +63,11 @@ class Menu extends Phaser.Scene {
       playButton.scale = 0.15; // scaling for the button
 
       // add setting hover image
-      const settingHover = this.add.image(game.config.width/2, 475, 'settingsHover').setOrigin(0.5);
+      const settingHover = this.add.image(game.config.width/2, 575, 'settingsHover').setOrigin(0.5);
       settingHover.scale = 0.15; // scaling for the button
 
       // setting button
-      const settingButton = this.add.image(game.config.width/2, 475, 'settings').setOrigin(0.5);
+      const settingButton = this.add.image(game.config.width/2, 575, 'settings').setOrigin(0.5);
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
          this.selectSound.play({volume: sfxVol});
@@ -83,11 +83,11 @@ class Menu extends Phaser.Scene {
       settingButton.scale = 0.15; // scaling for the button
 
       // add howTo hover image
-      const howToHover = this.add.image(game.config.width/2, 575, 'howToHover').setOrigin(0.5);
+      const howToHover = this.add.image(game.config.width/2, 475, 'howToHover').setOrigin(0.5);
       howToHover.scale = 0.15; // scaling for the button
 
       // how to play button
-      const howTo = this.add.image(game.config.width/2, 575, 'howTo').setOrigin(0.5);
+      const howTo = this.add.image(game.config.width/2, 475, 'howTo').setOrigin(0.5);
       howTo.setInteractive();
       howTo.on('pointerdown', () => {
          this.selectSound.play({volume: sfxVol});
