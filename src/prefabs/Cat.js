@@ -17,6 +17,7 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       this.suction1 = this.scene.sound.add('suction1', {volume: sfxVol});  // suction 1 sound
       this.suction2 = this.scene.sound.add('suction2', {volume: sfxVol});  // suction 2 sound
       this.jumpSound = this.scene.sound.add('jump', {volume: sfxVol}); // jump sound
+      this.fallSound = this.scene.sound.add('wind1', {volume: sfxVol}); // fall sound
       this.climbsoundClock = null;  // timer for suction sounds
       this.climbSoundisEnabled = true;  // track if suction sounds are enabled
       this.animation = this.anims.play('climb', true);  // play climb animation
@@ -53,6 +54,7 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
 
       // fall down
       if(keyS.isDown && !this.isJumping && !this.isResting && !this.isFalling) {
+         this.fallSound.play({volume: sfxVol});
          this.isFalling = true;
          if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;
       }

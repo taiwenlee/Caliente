@@ -1,5 +1,15 @@
-// Endless runner game for CMPM/ARTG 120 by Tai Wen Lee, 
-// Jake Indgin, Lily Pham, and Rachel Trieu
+// Endless runner game for UCSC CMPM/ARTG 120
+
+// Group names: Jake Indgin, Tai Wen Lee, Lily Pham, and Rachel Trieu
+
+// Game name: Caliente 
+// (A portmanteau of cat, alien, and hot.)
+// Date finished: 5/2/22
+
+// Creative tilt: We're particularly proud of our stamina bar, audio settings, 
+// and variety of game objects (wood vs metal balconies that have different functions). 
+// Our hitboxes also resize based on the animation playing.
+// We're proud of our music, which has a satisfying, ethereal loop and doesn't get old fast.
 
 let config = {
    type: Phaser.AUTO,

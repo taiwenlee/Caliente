@@ -31,6 +31,9 @@ class Play extends Phaser.Scene {
       this.load.audio('jump', './assets/sounds/jump.wav');
       this.load.audio('suction1', './assets/sounds/suction1.mp3');
       this.load.audio('suction2', './assets/sounds/suction2.mp3');
+      this.load.audio('wind1', './assets/sounds/wind1.mp3');
+      this.load.audio('wind2', './assets/sounds/wind2.mp3');
+
    }
 
    create() {
@@ -173,7 +176,7 @@ class Play extends Phaser.Scene {
    // make a hole object
    addHole() {
       let isLeft = Math.random() < 0.5;
-      let hole = new Hole(this, isLeft ? this.buildingPos[0] - 82 : this.buildingPos[1] + 82, -84, 'hole', 0).setOrigin(0.5);
+      let hole = new Hole(this, isLeft ? this.buildingPos[0] - 80 : this.buildingPos[1] + 80, -84, 'hole', 0).setOrigin(0.5);
       if(!isLeft) hole.flipX = true;
       this.obstacle.add(hole);
    }
