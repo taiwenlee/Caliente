@@ -25,8 +25,8 @@ let config = {
 // Phaser game object
 let game = new Phaser.Game(config);
 
-// reserve keyboard vars
-let keySPACE, keyS;
+// reserve input vars
+let input;
 
 // background music var
 let music;
@@ -37,3 +37,11 @@ let pause = false;
 // volume vars
 let musicVol = 0.5;
 let sfxVol = 0.5;
+
+// Check touch input
+// from https://browsergameshub.com/check-player-is-on-mobile-or-desktop/
+var IS_TOUCH	= false;
+window.addEventListener('touchstart', function()
+{			
+   IS_TOUCH	= true;
+});

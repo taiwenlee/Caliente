@@ -22,6 +22,10 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       this.climbSoundisEnabled = true;  // track if suction sounds are enabled
       this.animation = this.anims.play('climb', true);  // play climb animation
       this.animationName = 'climb';  // set animation name
+
+      // touch support
+      this.duration = 0;
+      this.hold = false;
    }
 
    update(time, delta) {
@@ -41,22 +45,35 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
          this.y -= this.moveSpeed * delta / 200;
       }
 
-      // jumps from one side to another
-      if(keySPACE.isDown && !this.isJumping && !this.isFalling && !this.isResting) {
-         this.jumpSound.play({volume: sfxVol});
-         this.anims.play('jump', true);
-         this.resizeHitbox();
-         this.left ? this.left = false : this.left = true;
-         this.flipX = this.left;
-         this.isJumping = true;
-         if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;
-      }
-
-      // fall down
-      if(keyS.isDown && !this.isJumping && !this.isResting && !this.isFalling) {
-         this.fallSound.play({volume: sfxVol});
-         this.isFalling = true;
-         if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;
+      // tap vs hold
+      if(input.isDown) {
+         this.duration += delta;
+         if(this.duration > 200) { // hold for 200ms
+            // fall down
+            if(!this.isJumping && !this.isResting && !this.isFalling) {
+               console.log('hold');
+               this.hold = true;
+               this.fallSound.play({volume: sfxVol});
+               this.isFalling = true;
+               if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;
+            }
+         }
+      } else if (this.duration > 1 && !this.hold) {
+         console.log('tap');           
+         // jumps from one side to another
+         if(!this.isJumping && !this.isFalling && !this.isResting) {
+            this.jumpSound.play({volume: sfxVol});
+            this.anims.play('jump', true);
+            this.resizeHitbox();
+            this.left ? this.left = false : this.left = true;
+            this.flipX = this.left;
+            this.isJumping = true;
+            if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;
+         }
+         this.duration = 0;
+      } else {
+         this.hold = false;
+         this.duration = 0;
       }
 
       // check if cat is currently jumping and updates position if it is
@@ -70,17 +87,19 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
             if(this.climbSoundisEnabled) this.climbsoundClock.paused = false;
          }
       } else if(this.isFalling) {
+         console.log('fall');
          this.y += this.moveSpeed * delta / 20;
          this.anims.play('fall', true);
          this.resizeHitbox();
          this.flipX = this.left;
-      } else if(this.isResting && keyS.isUp) {
+      } else if(this.isResting && !input.isDown) {
+         console.log('stop rest');
          this.isResting = false;
          if(this.climbSoundisEnabled) this.climbsoundClock.paused = false;
       } else if (this.isResting) {
          // resizes hitbox to match rest animation and reposition cat to balcony
+         console.log('rest');
          if(this.anims.currentAnim.key != "rest") {
-            let prev = this.anims.currentFrame;
             this.anims.play('rest', true);
             this.flipX = this.left;
             this.resizeHitbox();
