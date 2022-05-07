@@ -22,6 +22,10 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
       this.climbSoundisEnabled = true;  // track if suction sounds are enabled
       this.animation = this.anims.play('climb', true);  // play climb animation
       this.animationName = 'climb';  // set animation name
+
+      // touch support
+      this.duration = 0;
+      this.hold = false;
    }
 
    update(time, delta) {
@@ -41,53 +45,65 @@ class Cat extends Phaser.Physics.Arcade.Sprite {
          this.y -= this.moveSpeed * delta / 200;
       }
 
-      // jumps from one side to another
-      if(keySPACE.isDown && !this.isJumping && !this.isFalling && !this.isResting) {
-         this.jumpSound.play({volume: sfxVol});
-         this.anims.play('jump', true);
-         this.resizeHitbox();
-         this.left ? this.left = false : this.left = true;
-         this.flipX = this.left;
-         this.isJumping = true;
-         if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;
+      // control logic
+      if(input.isDown) {
+         this.duration += delta;
+         if(this.duration > 200) { // hold for 200ms
+            // fall down
+            if(!this.hold && !this.isJumping && !this.isResting && !this.isFalling) {
+               console.log('hold');
+               this.hold = true;
+               this.fallSound.play({volume: sfxVol});
+               this.isFalling = true;
+               if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;
+            }
+         }
+      } else if (this.duration > 1 && !this.hold) {
+         console.log('tap');           
+         // jumps from one side to another
+         if(!this.isJumping && !this.isFalling && !this.isResting) {
+            this.jumpSound.play({volume: sfxVol});
+            this.anims.play('jump', true);
+            this.resizeHitbox();
+            this.left ? this.left = false : this.left = true;
+            this.flipX = this.left;
+            this.isJumping = true;
+            if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;
+         }
+         this.duration = 0;
+      } else {
+         this.hold = false;
+         this.duration = 0;
       }
 
-      // fall down
-      if(keyS.isDown && !this.isJumping && !this.isResting && !this.isFalling) {
-         this.fallSound.play({volume: sfxVol});
-         this.isFalling = true;
-         if(this.climbSoundisEnabled) this.climbsoundClock.paused = true;
-      }
-
-      // check if cat is currently jumping and updates position if it is
-      if(this.isJumping) {
+      // cat movements
+      if(this.isJumping) { // jump movement
          this.left ? this.x -= this.moveSpeed * delta / 10 : this.x += this.moveSpeed * delta / 10;
-
          // if position reached, stop jumping
          if(this.x <= this.leftPos || this.x >= this.rightPos) {
             this.left ? this.x = this.leftPos : this.x = this.rightPos;
             this.isJumping = false;
             if(this.climbSoundisEnabled) this.climbsoundClock.paused = false;
          }
-      } else if(this.isFalling) {
+      } else if(this.isFalling) { // fall movement
          this.y += this.moveSpeed * delta / 20;
          this.anims.play('fall', true);
          this.resizeHitbox();
          this.flipX = this.left;
-      } else if(this.isResting && keyS.isUp) {
+      } else if(this.isResting && !input.isDown) { // stop resting
+         console.log('stop rest');
          this.isResting = false;
          if(this.climbSoundisEnabled) this.climbsoundClock.paused = false;
-      } else if (this.isResting) {
+      } else if (this.isResting) {  // resting movement
          // resizes hitbox to match rest animation and reposition cat to balcony
+         console.log('rest');
          if(this.anims.currentAnim.key != "rest") {
-            let prev = this.anims.currentFrame;
             this.anims.play('rest', true);
             this.flipX = this.left;
             this.resizeHitbox();
             this.y += 10;
          }
-      } else {
-         // cat climb animation
+      } else { // climb movement
          this.anims.play('climb', true);
          this.flipX = this.left;
          this.resizeHitbox();

@@ -51,7 +51,9 @@ class Menu extends Phaser.Scene {
       playButton.setInteractive();
       playButton.on('pointerdown', () => {
          this.selectSound.play({volume: sfxVol});
-         this.scene.start("playScene");
+         this.time.delayedCall(100, () => {
+            this.scene.start("playScene");
+         });
       });
       playButton.on('pointerover', () => { // reveal hover image
          playButton.alpha = 0;

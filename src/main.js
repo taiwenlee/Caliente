@@ -18,15 +18,26 @@ let config = {
    physics: {
       default: 'arcade',
    },
+   scale: {
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+   },
    scene: [Menu, Play, Setting, Tutorial, Credits],
-   autoCenter: true,
 }
 
 // Phaser game object
 let game = new Phaser.Game(config);
 
-// reserve keyboard vars
-let keySPACE, keyS;
+// Check touch input
+// from https://browsergameshub.com/check-player-is-on-mobile-or-desktop/
+let IS_TOUCH	= false;
+window.addEventListener('touchstart', function()
+{			
+   IS_TOUCH	= true;
+});
+
+// reserve input var
+let input;
 
 // background music var
 let music;

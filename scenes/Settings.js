@@ -49,10 +49,13 @@ class Setting extends Phaser.Scene {
       const exitButton = this.add.image(300, 585, 'back').setOrigin(0.5);
       exitButton.setInteractive();
       exitButton.on('pointerdown', () => {
-         pause = false;
          this.backSound.play({volume: sfxVol});
-         this.scene.stop();
-         this.scene.resume("menuScene");
+         this.time.delayedCall(100, () => {
+            pause = false;
+            this.scene.stop();
+            this.scene.resume("menuScene");
+            this.scene.resume("playScene");
+         });
       });
       exitButton.on('pointerover', () => { // reveal hover image
          exitButton.alpha = 0;

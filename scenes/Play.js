@@ -38,8 +38,11 @@ class Play extends Phaser.Scene {
 
    create() {
       // define keys
-      keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-      keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+      if(IS_TOUCH) {
+         input = this.input.activePointer;
+      } else {
+         input = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+      }
 
        // select sound
       this.selectSound = this.sound.add('select', {volume: sfxVol});
@@ -132,9 +135,8 @@ class Play extends Phaser.Scene {
       const settingButton = this.add.image(500, 50, 'pause').setOrigin(0.5);
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
-         pause = true;
          this.selectSound.play({volume: sfxVol});
-         this.scene.launch("settingScene");
+         this.scene.pause().launch("settingScene");
       });
       settingButton.on('pointerover', () => { // reveal hover image
          settingButton.alpha = 0;
@@ -250,7 +252,9 @@ class Play extends Phaser.Scene {
       restartButton.on('pointerdown', () => {
          this.endGame.stop();
          this.selectSound.play({volume: sfxVol});
-         this.scene.restart();
+         this.time.delayedCall(100, () => {
+            this.scene.restart("playScene");
+         });
       });
       restartButton.on('pointerover', () => { // reveal hover image
          restartButton.alpha = 0;
@@ -296,7 +300,7 @@ class Play extends Phaser.Scene {
          this.gameOver();
       }
 
-      if(!this.over && !pause) {
+      if(!this.over) {
          // update cat
          this.Cat.update(time, delta);
 
