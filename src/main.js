@@ -41,9 +41,9 @@ let input;
 // background music var
 let music;
 
-// pause var
-let pause = false;
-
 // volume vars
 let musicVol = 0.5;
 let sfxVol = 0.5;
+
+// highscore var
+let highscore = 0;

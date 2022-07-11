@@ -9,13 +9,13 @@ class Menu extends Phaser.Scene {
       this.load.image('play', 'assets/images/play.png');
       this.load.image('playHover', 'assets/images/playHover.png');
       this.load.image('settings', 'assets/images/settings.png');
-      this.load.image('settingsHover', 'assets/images/settingsHover.png');      
+      this.load.image('settingsHover', 'assets/images/settingsHover.png');
       this.load.image('howTo', 'assets/images/howTo.png');
       this.load.image('howToHover', 'assets/images/howToHover.png');
       this.load.image('skyfield', 'assets/images/skyfield.png');
       this.load.image('credits', 'assets/images/credits.png');
       this.load.image('creditsHover', 'assets/images/creditsHover.png');
-      
+
       // audio assets
       this.load.audio('backgroundmusic', 'assets/sounds/Catlien.wav');
       this.load.audio('select', 'assets/sounds/select.wav');
@@ -25,32 +25,32 @@ class Menu extends Phaser.Scene {
    create() {
 
       // background music
-      if(!music) {
-         music = this.sound.add('backgroundmusic', {volume: musicVol});
+      if (!music) {
+         music = this.sound.add('backgroundmusic', { volume: musicVol });
          music.setLoop(true);
          music.play();
       }
 
       // select sound
-      this.selectSound = this.sound.add('select', {volume: sfxVol});
+      this.selectSound = this.sound.add('select', { volume: sfxVol });
 
       // add a background image
       this.skyfield = this.add.tileSprite(0, 0, 600, 800, 'skyfield').setOrigin(0, 0);
 
 
       // add title
-      const title = this.add.image(game.config.width/2, 200, 'title').setOrigin(0.5);
+      const title = this.add.image(game.config.width / 2, 200, 'title').setOrigin(0.5);
       title.scale = 0.13;
-      
+
       // add play hover image
-      const playHover = this.add.image(game.config.width/2, 375, 'playHover').setOrigin(0.5);
+      const playHover = this.add.image(game.config.width / 2, 375, 'playHover').setOrigin(0.5);
       playHover.scale = 0.15; // scaling for the button
 
       // play button
-      const playButton = this.add.image(game.config.width/2, 375, 'play').setOrigin(0.5);
+      const playButton = this.add.image(game.config.width / 2, 375, 'play').setOrigin(0.5);
       playButton.setInteractive();
       playButton.on('pointerdown', () => {
-         this.selectSound.play({volume: sfxVol});
+         this.selectSound.play({ volume: sfxVol });
          this.time.delayedCall(100, () => {
             this.scene.start("playScene");
          });
@@ -65,15 +65,15 @@ class Menu extends Phaser.Scene {
       playButton.scale = 0.15; // scaling for the button
 
       // add setting hover image
-      const settingHover = this.add.image(game.config.width/2, 575, 'settingsHover').setOrigin(0.5);
+      const settingHover = this.add.image(game.config.width / 2, 575, 'settingsHover').setOrigin(0.5);
       settingHover.scale = 0.15; // scaling for the button
 
       // setting button
-      const settingButton = this.add.image(game.config.width/2, 575, 'settings').setOrigin(0.5);
+      const settingButton = this.add.image(game.config.width / 2, 575, 'settings').setOrigin(0.5);
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
-         this.selectSound.play({volume: sfxVol});
-         this.scene.pause().launch("settingScene", {music: music});
+         this.selectSound.play({ volume: sfxVol });
+         this.scene.pause().launch("settingScene", { music: music });
       });
       settingButton.on('pointerover', () => { // reveal hover image
          settingButton.alpha = 0;
@@ -85,15 +85,15 @@ class Menu extends Phaser.Scene {
       settingButton.scale = 0.15; // scaling for the button
 
       // add howTo hover image
-      const howToHover = this.add.image(game.config.width/2, 475, 'howToHover').setOrigin(0.5);
+      const howToHover = this.add.image(game.config.width / 2, 475, 'howToHover').setOrigin(0.5);
       howToHover.scale = 0.15; // scaling for the button
 
       // how to play button
-      const howTo = this.add.image(game.config.width/2, 475, 'howTo').setOrigin(0.5);
+      const howTo = this.add.image(game.config.width / 2, 475, 'howTo').setOrigin(0.5);
       howTo.setInteractive();
       howTo.on('pointerdown', () => {
-         this.selectSound.play({volume: sfxVol});
-         this.scene.pause().launch("tutorialScene", {music: music});
+         this.selectSound.play({ volume: sfxVol });
+         this.scene.pause().launch("tutorialScene", { music: music });
       });
       howTo.on('pointerover', () => { // reveal hover image
          howTo.alpha = 0;
@@ -105,15 +105,15 @@ class Menu extends Phaser.Scene {
       howTo.scale = 0.15; // scaling for the button
 
       // add credits hover image
-      const creditsHover = this.add.image(game.config.width/2, 675, 'creditsHover').setOrigin(0.5);
+      const creditsHover = this.add.image(game.config.width / 2, 675, 'creditsHover').setOrigin(0.5);
       creditsHover.scale = 0.15; // scaling for the button
 
       // how to play button
-      const credits = this.add.image(game.config.width/2, 675, 'credits').setOrigin(0.5);
+      const credits = this.add.image(game.config.width / 2, 675, 'credits').setOrigin(0.5);
       credits.setInteractive();
       credits.on('pointerdown', () => {
-         this.selectSound.play({volume: sfxVol});
-         this.scene.pause().launch("creditsScene", {music: music});
+         this.selectSound.play({ volume: sfxVol });
+         this.scene.pause().launch("creditsScene", { music: music });
       });
       credits.on('pointerover', () => { // reveal hover image
          credits.alpha = 0;
