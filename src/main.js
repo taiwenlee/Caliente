@@ -30,10 +30,9 @@ let game = new Phaser.Game(config);
 
 // Check touch input
 // from https://browsergameshub.com/check-player-is-on-mobile-or-desktop/
-let IS_TOUCH	= false;
-window.addEventListener('touchstart', function()
-{			
-   IS_TOUCH	= true;
+let IS_TOUCH = false;
+window.addEventListener('touchstart', function () {
+   IS_TOUCH = true;
 });
 
 // reserve input var

@@ -12,7 +12,7 @@ class Setting extends Phaser.Scene {
       this.load.image('minus', 'assets/images/minus.png');
       this.load.image('minusHover', 'assets/images/minusHover.png');
       this.load.image('back', 'assets/images/back.png');
-      this.load.image('backHover', 'assets/images/backHover.png');            
+      this.load.image('backHover', 'assets/images/backHover.png');
       this.load.image('settings', 'assets/images/settings.png');
       this.load.image('skyfield', 'assets/images/skyfield.png');
    }
@@ -22,24 +22,24 @@ class Setting extends Phaser.Scene {
       this.skyfield = this.add.tileSprite(0, 0, 600, 800, 'skyfield').setOrigin(0, 0);
 
       // select sound
-      this.selectSound = this.sound.add('select', {volume: sfxVol});
+      this.selectSound = this.sound.add('select', { volume: sfxVol });
 
       // back sound
-      this.backSound = this.sound.add('back', {volume: sfxVol});
+      this.backSound = this.sound.add('back', { volume: sfxVol });
 
       // music vol text
-      this.musicVolText = this.add.text(game.canvas.width/2 + 20, 330, (musicVol * 100).toFixed(0), { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45, align: 'right'}).setOrigin(1, 0.5);
+      this.musicVolText = this.add.text(game.canvas.width / 2 + 20, 330, (musicVol * 100).toFixed(0), { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45, align: 'right' }).setOrigin(1, 0.5);
       this.musicVolText.depth = 11;
 
       // sfx vol text
-      this.sfxVolText = this.add.text(game.canvas.width/2 + 20, 450, (sfxVol * 100).toFixed(0), { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45, align: 'right'}).setOrigin(1, 0.5);
+      this.sfxVolText = this.add.text(game.canvas.width / 2 + 20, 450, (sfxVol * 100).toFixed(0), { fill: '#f46d3a', fontFamily: 'OCRAEXT', fontSize: 45, align: 'right' }).setOrigin(1, 0.5);
       this.sfxVolText.depth = 11;
 
       // add settings image
-      const settings = this.add.image(game.config.width/2, 200, 'settings').setOrigin(0.5);
+      const settings = this.add.image(game.config.width / 2, 200, 'settings').setOrigin(0.5);
       settings.depth = 10;
       settings.scale = 0.15; // scaling for the button
-      
+
       // add back hover
       const exitHover = this.add.image(300, 585, 'backHover').setOrigin(0.5);
       exitHover.depth = 10;
@@ -49,13 +49,12 @@ class Setting extends Phaser.Scene {
       const exitButton = this.add.image(300, 585, 'back').setOrigin(0.5);
       exitButton.setInteractive();
       exitButton.on('pointerdown', () => {
-         this.backSound.play({volume: sfxVol});
          this.time.delayedCall(100, () => {
-            pause = false;
             this.scene.stop();
             this.scene.resume("menuScene");
             this.scene.resume("playScene");
          });
+         this.backSound.play({ volume: sfxVol });
       });
       exitButton.on('pointerover', () => { // reveal hover image
          exitButton.alpha = 0;
@@ -69,7 +68,7 @@ class Setting extends Phaser.Scene {
       //exitButton.tint = 0xff0000; // temp tinting for the button
 
       // music title image
-      const musicTitle= this.add.image(200, 330, 'music').setOrigin(0.5);
+      const musicTitle = this.add.image(200, 330, 'music').setOrigin(0.5);
       musicTitle.depth = 10;
       musicTitle.scale = 0.15; // scaling for the button
 
@@ -82,8 +81,8 @@ class Setting extends Phaser.Scene {
       const musicVolumeUpButton = this.add.image(500, 330, 'plus').setOrigin(0.5);
       musicVolumeUpButton.setInteractive();
       musicVolumeUpButton.on('pointerdown', () => {
-         this.selectSound.play({volume: sfxVol});
-         if(musicVol <= 1) {
+         this.selectSound.play({ volume: sfxVol });
+         if (musicVol <= 1) {
             musicVol += 0.1;
          }
          musicVol = Math.min(1, musicVol);
@@ -110,8 +109,8 @@ class Setting extends Phaser.Scene {
       const musicVolumeDownButton = this.add.image(405, 330, 'minus').setOrigin(0.5);
       musicVolumeDownButton.setInteractive();
       musicVolumeDownButton.on('pointerdown', () => {
-         this.backSound.play({volume: sfxVol});
-         if(musicVol >= 0) {
+         this.backSound.play({ volume: sfxVol });
+         if (musicVol >= 0) {
             musicVol -= 0.1;
          }
          musicVol = Math.max(0, musicVol);
@@ -130,7 +129,7 @@ class Setting extends Phaser.Scene {
       //musicVolumeDownButton.tint = 0x00ff00; // temp tinting for the button
 
       // sfx title image
-      const sfxTitle= this.add.image(200, 450, 'sfx').setOrigin(0.5);
+      const sfxTitle = this.add.image(200, 450, 'sfx').setOrigin(0.5);
       sfxTitle.depth = 10;
       sfxTitle.scale = 0.15; // scaling for the button
 
@@ -143,8 +142,8 @@ class Setting extends Phaser.Scene {
       const sfxVolumeUpButton = this.add.image(500, 450, 'plus').setOrigin(0.5);
       sfxVolumeUpButton.setInteractive();
       sfxVolumeUpButton.on('pointerdown', () => {
-         this.selectSound.play({volume: sfxVol});
-         if(sfxVol <= 1) {
+         this.selectSound.play({ volume: sfxVol });
+         if (sfxVol <= 1) {
             sfxVol += 0.1;
          }
          sfxVol = Math.min(1, sfxVol);
@@ -170,8 +169,8 @@ class Setting extends Phaser.Scene {
       const sfxVolumeDownButton = this.add.image(405, 450, 'minus').setOrigin(0.5);
       sfxVolumeDownButton.setInteractive();
       sfxVolumeDownButton.on('pointerdown', () => {
-         this.backSound.play({volume: sfxVol});
-         if(sfxVol >= 0) {
+         this.backSound.play({ volume: sfxVol });
+         if (sfxVol >= 0) {
             sfxVol -= 0.1;
          }
          sfxVol = Math.max(0, sfxVol);
