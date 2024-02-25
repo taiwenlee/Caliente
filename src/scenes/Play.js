@@ -136,7 +136,7 @@ class Play extends Phaser.Scene {
       settingButton.setInteractive();
       settingButton.on('pointerdown', () => {
          this.selectSound.play({ volume: sfxVol });
-         this.scene.pause().launch("settingScene");
+         this.scene.pause().launch("settingScene", { music: music, fromScene: "playScene" });
       });
       settingButton.on('pointerover', () => { // reveal hover image
          settingButton.alpha = 0;

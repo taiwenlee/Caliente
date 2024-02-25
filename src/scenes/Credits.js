@@ -40,7 +40,6 @@ class Credits extends Phaser.Scene {
         const exitButton = this.add.image(game.config.width/2, 595, 'back').setOrigin(0.5);
         exitButton.setInteractive();
         exitButton.on('pointerdown', () => {
-            pause = false;
             this.backSound.play({volume: sfxVol});
             this.scene.stop();
             this.scene.resume("menuScene");

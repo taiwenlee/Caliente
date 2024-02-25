@@ -3,6 +3,10 @@ class Setting extends Phaser.Scene {
       super("settingScene");
    }
 
+   init(data) {
+      this.fromScene = data.fromScene;
+   }
+
    preload() {
       // image assets
       this.load.image('music', 'assets/images/music.png');
@@ -51,8 +55,7 @@ class Setting extends Phaser.Scene {
       exitButton.on('pointerdown', () => {
          this.time.delayedCall(100, () => {
             this.scene.stop();
-            this.scene.resume("menuScene");
-            this.scene.resume("playScene");
+            this.scene.resume(this.fromScene);
          });
          this.backSound.play({ volume: sfxVol });
       });
