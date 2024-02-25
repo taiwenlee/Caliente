@@ -18,10 +18,7 @@ let config = {
    physics: {
       default: 'arcade',
    },
-   scale: {
-      mode: Phaser.Scale.FIT,
-      autoCenter: Phaser.Scale.CENTER_BOTH,
-   },
+   autoCenter: true,
    scene: [Menu, Play, Setting, Tutorial, Credits],
 }
 
