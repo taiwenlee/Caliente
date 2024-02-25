@@ -93,7 +93,7 @@ class Menu extends Phaser.Scene {
       howTo.setInteractive();
       howTo.on('pointerdown', () => {
          this.selectSound.play({ volume: sfxVol });
-         this.scene.pause().launch("tutorialScene", { music: music });
+         this.scene.pause().launch("tutorialScene", { music: music, fromScene: "menuScene"});
       });
       howTo.on('pointerover', () => { // reveal hover image
          howTo.alpha = 0;

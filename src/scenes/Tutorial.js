@@ -3,10 +3,16 @@ class Tutorial extends Phaser.Scene {
        super("tutorialScene");
     }
 
+    init(data) {
+        this.fromScene = data.fromScene;
+    }
+
     preload() {
         // image assets
         this.load.image('howTo', 'assets/images/howTo.png');
         this.load.image('controls', 'assets/images/controls.png');
+        this.load.image('controlspc', 'assets/images/controlsPC.png');
+        this.load.image('controlsmobile', 'assets/images/controlsMobile.png');
         this.load.image('tutorial', 'assets/images/tutorial.png');
         this.load.image('back', 'assets/images/back.png');
         this.load.image('backHover', 'assets/images/backHover.png');
@@ -30,10 +36,16 @@ class Tutorial extends Phaser.Scene {
         howTo.scale = 0.15;
         howTo.depth = 10;
 
-        const controls = this.add.image(game.config.width/2, 245, 'controls').setOrigin(0.5);
-        controls.scale = 0.15
-        controls.depth = 10;        
-        
+        if (IS_TOUCH) {
+            const controls = this.add.image(game.config.width/2, 245, 'controlsmobile').setOrigin(0.5);
+            controls.scale = 0.15;
+            controls.depth = 10;
+        } else {
+            const controls = this.add.image(game.config.width/2, 245, 'controlspc').setOrigin(0.5);
+            controls.scale = 0.15;
+            controls.depth = 10;
+        }
+
         const tutorial = this.add.image(game.config.width/2, 495, 'tutorial').setOrigin(0.5);
         tutorial.scale = 0.15;
         tutorial.depth = 10;
@@ -68,10 +80,9 @@ class Tutorial extends Phaser.Scene {
         const exitButton = this.add.image(163, 700, 'back').setOrigin(0.5);
         exitButton.setInteractive();
         exitButton.on('pointerdown', () => {
-            pause = false;
             this.backSound.play({volume: sfxVol});
             this.scene.stop();
-            this.scene.resume("menuScene");
+            this.scene.resume(this.fromScene);
         });
         exitButton.on('pointerover', () => { // reveal hover image
             exitButton.alpha = 0;
