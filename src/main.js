@@ -18,12 +18,8 @@ let config = {
    physics: {
       default: 'arcade',
    },
-   autoCenter: true,
    scene: [Menu, Play, Setting, Tutorial, Credits],
-}
-
-// Phaser game object
-let game = new Phaser.Game(config);
+};
 
 // Check touch input
 // from https://browsergameshub.com/check-player-is-on-mobile-or-desktop/
@@ -31,6 +27,23 @@ let IS_TOUCH = false;
 window.addEventListener('touchstart', function () {
    IS_TOUCH = true;
 });
+
+// Directly check for touch support and configure scaling if necessary
+if ('ontouchstart' in window || navigator.maxTouchPoints) { // More robust touch detection
+   config.scale = {
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+   };
+} else {
+   // Assuming you want to apply some desktop-specific settings
+   // Note: autoCenter should be part of the scale config
+   config.scale = {
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+   };
+}
+
+// Phaser game object
+let game = new Phaser.Game(config);
 
 // reserve input var
 let input;
